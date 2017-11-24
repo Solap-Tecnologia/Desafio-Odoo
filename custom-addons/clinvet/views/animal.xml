@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+
+		<!-- Form view -->
+		<record model='ir.ui.view' id='animal_form_view'>
+			<field name='name'>animal.form</field>
+			<field name='model'>vetclin.animal</field>
+			<field name='arch' type='xml'>
+				<form string='Animais'>
+					<sheet>
+						<group>
+							<field name='id' invisible='True' />
+							<field name='name' />
+							<field name='tipodeanimal_id' widget='selection'/>
+							<field name='cliente_id' widget='selection' domain="[('is_dono', '=', True)]"/>
+						</group>
+					</sheet>
+				</form>				
+			</field>
+		</record>
+
+		<record model='ir.ui.view' id='animal_tree_view'>
+			<field name='name'>animal.tree</field>
+			<field name='model'>vetclin.animal</field>
+			<field name='arch' type='xml'>
+				<tree string='Lista de animais'>
+
+					<field name='id'/>
+					<field name='name'/>
+					<field name='tipodeanimal_id'/>
+					<field name='cliente_id'/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model='ir.actions.act_window' id='janela_cadastro_animais'>
+			<field name='name'>Animais</field>
+			<field name='res_model'>vetclin.animal</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Cadastre os animais</p>
+			</field>
+		</record>
+
+		<menuitem 
+			id='submenu_animal'
+			name='Animais'
+			parent='menu_esquerdo_cadastros'
+			action='janela_cadastro_animais' />
+	</data>
+</odoo>

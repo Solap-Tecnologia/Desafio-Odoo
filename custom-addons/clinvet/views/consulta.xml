@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+
+		<!-- Form view -->
+		<record model='ir.ui.view' id='consulta_form_view'>
+			<field name='name'>consulta.form</field>
+			<field name='model'>vetclin.consulta</field>
+			<field name='arch' type='xml'>
+				<form string='Consulta'>
+					<sheet>
+						<group>
+							<field name='id' invisible='True' />
+                        				<field name="procedimento_id" widget="many2many_selection"/>
+ 							<field name='medicamento_id' widget='many2many_selection'/>
+							<field name='animal_id' widget='selection'/>
+							<field name='consultorio_id' widget='selection'/>
+							<field name='observacao' />
+						</group>
+					</sheet>
+				</form>				
+			</field>
+		</record>
+
+		<record model='ir.ui.view' id='animal_tree_view'>
+			<field name='name'>consulta.tree</field>
+			<field name='model'>vetclin.consulta</field>
+			<field name='arch' type='xml'>
+				<tree string='Registro de Consultas'>
+					<field name='id'/>
+				        <field name='procedimento_id'/>
+					<field name='medicamento_id'/>
+					<field name='animal_id' widget='selection'/>
+					<field name='consultorio_id' widget='selection'/>
+					<field name='observacao'/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model='ir.actions.act_window' id='janela_cadastro_consultas'>
+			<field name='name'>Consultas</field>
+			<field name='res_model'>vetclin.consulta</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Registro de Consultas</p>
+			</field>
+		</record>
+
+		<menuitem 
+			id='submenu_consulta'
+			name='Consultas'
+			parent='menu_esquerdo_cadastros'
+			action='janela_cadastro_consultas' />
+	</data>
+</odoo>

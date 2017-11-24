@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		
+		<!-- Form view -->
+		<record model='ir.ui.view' id='tipodeanimal_form_view'>
+			<field name='name'>tipodeanimal.form</field>
+			<field name='model'>vetclin.tipodeanimal</field>
+			<field name='arch' type='xml'>
+				<form string='Formulario de Tipos de Animais'>
+					<sheet>
+						<group>
+							<field name='name' placeholder='Espécie'/>
+							<field name='raca' placeholder='Raça' />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Tree view -->
+		<record model='ir.ui.view' id='tipodeanimal_tree_view'>
+			<field name='name'>tipodeanimal.tree</field>
+			<field name='model'>vetclin.tipodeanimal</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name='id' />
+					<field name='name' />
+					<field name='raca' />
+				</tree>			
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record model='ir.ui.view' id='tipodeanimal_search_view'>
+			<field name='name'>tipodeanimal.search</field>
+			<field name='model'>vetclin.tipodeanimal</field>
+			<field name='arch' type='xml'>
+				<search>
+					<field name='id' />
+					<field name='name' />
+					<field name='raca' />
+				</search>			
+			</field>
+		</record>
+
+		<!-- Registro que tem ação de abrir o form -->
+		<record model='ir.actions.act_window' id='janela_cadastro_tipodeanimais'>
+			<field name='name'>Tipos de Animais</field>
+			<field name='res_model'>vetclin.tipodeanimal</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Cadastre os tipos de animais</p>
+			</field>
+		</record>
+
+		<!-- Menu que abrirá o form ou o tree view-->
+		<menuitem id='submenu_tipodeanimal'
+			name='Tipo de Animal'
+			parent='menu_esquerdo_cadastros'
+			action='janela_cadastro_tipodeanimais'/>
+
+	</data>
+</odoo>

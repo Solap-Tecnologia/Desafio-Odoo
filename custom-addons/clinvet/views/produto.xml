@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		
+		<!-- Form view -->
+		<record model='ir.ui.view' id='produto_form_view'>
+			<field name='name'>produto.form</field>
+			<field name='model'>vetclin.produto</field>
+			<field name='arch' type='xml'>
+				<form string='Formulario Cadastro de Produtos'>
+					<sheet>
+						<group>
+							<field name='nome_produto' placeholder='Nome do Produto'/>
+							<field name='desc_produto' placeholder='Descrição do Produto' />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Tree view -->
+		<record model='ir.ui.view' id='produto_tree_view'>
+			<field name='name'>produto.tree</field>
+			<field name='model'>vetclin.produto</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name='id' />
+					<field name='nome_produto' />
+					<field name='desc_produto' />
+				</tree>			
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record model='ir.ui.view' id='produto_search_view'>
+			<field name='name'>produto.search</field>
+			<field name='model'>vetclin.produto</field>
+			<field name='arch' type='xml'>
+				<search>
+					<field name='id' />
+					<field name='nome_produto' />
+					<field name='desc_produto' />
+				</search>			
+			</field>
+		</record>
+
+		<!-- Registro que tem ação de abrir o form -->
+		<record model='ir.actions.act_window' id='janela_cadastro_produto'>
+			<field name='name'>Produtos</field>
+			<field name='res_model'>vetclin.produto</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Cadastre os produtos</p>
+			</field>
+		</record>
+
+		<!-- Menu que abrirá o form ou o tree view-->
+		<menuitem id='submenu_produto'
+			name='Produtos'
+			parent='menu_esquerdo_cadastros'
+			action='janela_cadastro_produto'/>
+	</data>
+</odoo>

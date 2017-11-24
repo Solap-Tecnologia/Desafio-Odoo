@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>		
+		<!-- Form view -->
+		<record model='ir.ui.view' id='consultorio_form_view'>
+			<field name='name'>consultorio.form</field>
+			<field name='model'>vetclin.consultorio</field>
+			<field name='arch' type='xml'>
+				<form string='Formulario de Consultorios'>
+					<sheet>
+						<group>
+							<field name='id' invisible='True'/>
+							<field name='nome' placeholder='Nome'/>
+                            <field name='ramal' placeholder='Ramal'/>
+							<field name='descricao' placeholder='Descrição' />
+							<field name='clinica_id' widget='selection'/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Tree view -->
+		<record model='ir.ui.view' id='consultorio_tree_view'>
+			<field name='name'>consultorio.tree</field>
+			<field name='model'>vetclin.consultorio</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name='id' />
+                    <field name='nome' />
+					<field name='ramal' />
+					<field name='descricao' />
+					<field name='clinica_id' />                   
+				</tree>			
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record model='ir.ui.view' id='consultorio_search_view'>
+			<field name='name'>consultorio.search</field>
+			<field name='model'>vetclin.consultorio</field>
+			<field name='arch' type='xml'>
+				<search>
+					<field name='id' />
+                    <field name='nome' />
+					<field name='ramal' />
+					<field name='descricao' />
+                    <field name='clinica_id'/>
+				</search>			
+			</field>
+		</record>
+
+		<!-- Registro que tem ação de abrir o form -->
+		<record model='ir.actions.act_window' id='janela_cadastro_consultorio'>
+			<field name='name'>Consultórios</field>
+			<field name='res_model'>vetclin.consultorio</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Cadastre os Consultórios</p>
+			</field>
+		</record>
+
+		<!-- Menu que abrirá o form ou o tree view-->
+		<menuitem id='submenu_consultorio'
+			name='Consultórios'
+			parent='menu_esquerdo_cadastros'
+			action='janela_cadastro_consultorio'/>
+
+	</data>
+</odoo>
