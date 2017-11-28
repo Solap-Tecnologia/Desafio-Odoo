@@ -13,6 +13,7 @@
 							<field name='id' invisible='True'/>
 							<field name='name'/>
 							<field name='descricao'/>
+							<field name='preco' widget='monetary'/>
 						</group>
 					</sheet>
 				</form>
