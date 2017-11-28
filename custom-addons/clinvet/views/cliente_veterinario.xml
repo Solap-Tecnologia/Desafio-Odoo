@@ -1,58 +1,70 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
-
-		<!-- Form View -->
-		<record id='veterinario_form_view' model='ir.ui.view'>
-			<field name='name'>veterinario.form</field>
-			<field name='model'>res.partner</field>
-			<field name='inherit_id' ref='base.view_partner_form' />
-			<field name='arch' type='xml'>
+		<record id="vetclin_res_partner_view2" model="ir.ui.view">
+			<field name="name">res.partner.form.vetclin2</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field eval="20" name="priority"/>
+			<field name="arch" type="xml">
 				<xpath expr='//div[@name="button_box"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
+
 				<xpath expr='//field[@name="company_type"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
+
 				<xpath expr='//field[@name="parent_id"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
-				<xpath expr='//field[@name="name"]' position='before'>
-					<field name="is_veterinario" invisible='True'/>
-				</xpath>
+
 				<xpath expr='//field[@name="name"]' position='attributes'>
 					<attribute name='placeholder'>Nome</attribute>
 				</xpath>
+
 				<xpath expr='//notebook' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
-				<xpath expr='//label[@for="street"]' position='attributes'>
-					<attribute name='for'>Endereço</attribute>
-					<!--<label string='Endereço' />-->
+
+				<xpath expr='//label[@for="street"]' position='replace'>
+					<label string='Endereço' />
 				</xpath>
+
 				<xpath expr='//field[@name="vat"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
+
 				<xpath expr='//field[@name="category_id"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
+
 				<xpath expr='//div[@name="button_box"]' position='before'>
 					<field name='is_dono' invisible='True'/>
 				</xpath>
-				<xpath expr='//field[@name="function"]' position='attributes'>
-					<attribute name='name'>crmv</attribute>
-					<attribute name='placeholder'>Registro veterinario</attribute>
-					<!--<field name='crmv' />-->
+
+				<xpath expr='//field[@name="function"]' position='replace'>
+					<field name='crmv' attrs="{'invisible':[('is_dono','=',True)]}" />
 				</xpath>
+
 				<xpath expr='//field[@name="crmv"]' position='after'>
-					<field name='data_admissao'/>
+					<field name='data_admissao' attrs="{'invisible':[('is_dono','=',True)]}"/>
 				</xpath>
+
 				<xpath expr='//field[@name="data_admissao"]' position='after'>
-					<field name='data_demissao'/>
+					<field name='data_demissao' attrs="{'invisible':[('is_dono','=',True)]}"/>
 				</xpath>
-				<xpath expr='//field[@name="data_demissao"]' position='after'>
-					<field name='salario' widget='monetary' />
+
+				<xpath expr='//field[@name="email"]' position='after'>
+					<field name='cpf' attrs="{'invisible':[('is_dono','=',False)]}"/>
 				</xpath>
+
+				<!--name_dono-->
+				<xpath expr='//field[@name="name"]' position='before'>
+					<field name="is_dono" invisible='True'/>
+				</xpath>
+
+				<!---->
 				<xpath expr='//field[@name="website"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
@@ -65,24 +77,7 @@
 				<xpath expr='//field[@name="street2"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
-
-				<xpath expr='//field[@name="street"]' position='attributes'>
-					<attribute name='placeholder'>Rua, numero</attribute>
-				</xpath>
-
-				<xpath expr='//field[@name="city"]' position='attributes'>
-					<attribute name='placeholder'>Cidade</attribute>
-				</xpath>
-				<xpath expr='//field[@name="state_id"]' position='attributes'>
-					<attribute name='placeholder'>Estado</attribute>
-				</xpath>
-				<xpath expr='//field[@name="zip"]' position='attributes'>
-					<attribute name='placeholder'>CEP</attribute>
-				</xpath>
-				<xpath expr='//field[@name="country_id"]' position='attributes'>
-					<attribute name='placeholder'>País</attribute>
-				</xpath>
-				<!--<xpath expr='//field[@name="street"]' position='replace'>
+				<xpath expr='//field[@name="street"]' position='replace'>
 					<field name='street' placeholder='Rua, numero'/>
 				</xpath>
 				<xpath expr='//field[@name="city"]' position='replace'>
@@ -96,38 +91,17 @@
 				</xpath>
 				<xpath expr='//field[@name="country_id"]' position='replace'>
 					<field name="country_id" placeholder="País" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-				</xpath>-->
+				</xpath>
+
 			</field>
 		</record>
-
-		<!-- Tree View -->
-		<!--<record id='' model=''>
-			<field name='name'></field>
-			<field name='model'></field>
-			<field name='inherit_id'></field>
-			<field name='arch' type='xml'>
-				
-			</field>
-		</record>-->
-
-		<!-- Search View -->
-		<!--<record id='' model=''>
-			<field name='name'></field>
-			<field name='model'></field>
-			<field name='inherit_id'></field>
-			<field name='arch' type='xml'>
-				
-			</field>
-				
-			</field>
-		</record>-->
 
 		<record id='janela_cadastro_veterinarios' model='ir.actions.act_window'>
 			<field name='name'>Veterinarios</field>
 			<field name='res_model'>res.partner</field>
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
-			<field name='view_id' ref='veterinario_form_view' />
+			<field name='view_id' ref='vetclin_res_partner_view2' />
 			<field name='context'>{'default_is_veterinario':True}</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>
@@ -136,11 +110,30 @@
 			</field>
 		</record>
 
-		<menuitem 
-			id='submenu_veterinario'
-			name='Veterinario'
-			parent='menu_esquerdo_cadastros'
-			action='janela_cadastro_veterinarios' />
-		
+		<record id='janela_cadastro_dono' model='ir.actions.act_window'>
+			<field name='name'>Clientes</field>
+			<field name='res_model'>res.partner</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='view_id' ref='vetclin_res_partner_view2' />
+			<field name='context'>{'default_is_dono':True}</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>
+					Cadastre os Clientes.
+				</p>
+			</field>
+		</record>
+
+		<menuitem
+				id='submenu_veterinario'
+				name='Veterinario'
+				parent='menu_esquerdo_cadastros'
+				action='janela_cadastro_veterinarios' />
+
+		<menuitem
+				id='submenu_dono'
+				name='Cliente'
+				parent='menu_esquerdo_cadastros'
+				action='janela_cadastro_dono' />
 	</data>
 </odoo>

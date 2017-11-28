@@ -101,4 +101,3 @@ class Partner(models.Model):
 	mobile = fields.Char(string="Celular")
 	#relações
 	animal_ids = fields.One2many('vetclin.animal', 'cliente_id', string="Animais")
-	#consulta_ids = fields.One2many('vetclin.consulta', 'veterinario_id', string="Veterinário")
