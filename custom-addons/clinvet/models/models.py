@@ -11,15 +11,14 @@ class TipoDeAnimal(models.Model):
 	raca = fields.Char(string="Raca")
 	animal_ids = fields.One2many('vetclin.animal', 'tipodeanimal_id', string="Animais")
 
-class Procedimento(models.Model):
-	_name = 'vetclin.procedimento'
-	_description = 'Procedimento'
+class Servico(models.Model):
+	_name = 'vetclin.servico'
+	_description = 'Serviços'
 
 	id = fields.Integer()
-	name = fields.Char(string="Procedimento")
-	desc_procedimento = fields.Char(string="Descrição do Procedimento")
+	name = fields.Char(string="Serviço")
+	descricao = fields.Text(string="Descrição do Serviço")
 	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Consulta")
-	#consulta_id = fields.One2many('vetclin.consulta' , 'procedimento_id', string="Consulta")
 
 class Consulta(models.Model):
 	_name = 'vetclin.consulta'
@@ -27,10 +26,8 @@ class Consulta(models.Model):
 
 	id = fields.Integer()
 	observacao = fields.Char(string="Observações")
-	#procedimento_id = fields.Many2one('vetclin.procedimento', ondelete='cascade', string="Procedimento")	
-	procedimento_id = fields.One2many('vetclin.procedimento' , 'consulta_id', string="Procedimento")
+	procedimento_id = fields.One2many('vetclin.servico' , 'consulta_id', string="Serviço")
 	medicamento_id = fields.One2many('vetclin.medicamento' , 'consulta_id', string="Medicamento")
-	#medicamento_id = fields.Many2one('vetclin.medicamento', ondelete='cascade', string="Medicamento")
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	#veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="veterinario")
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
@@ -42,7 +39,6 @@ class Medicamento(models.Model):
 	id = fields.Integer()
 	name = fields.Char(string="Medicamento")
 	comp_quimica = fields.Char(string="Composição Química")
-	#consulta_id = fields.One2many('vetclin.consulta' , 'medicamento_id', string="medicamento")
 	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Medicamento")
 
 class Animal(models.Model):
