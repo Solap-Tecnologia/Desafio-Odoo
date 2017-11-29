@@ -31,7 +31,8 @@ class Consulta(models.Model):
 	#medicamento_id = fields.One2many('vetclin.medicamento' , 'consulta_id', string="Medicamento")
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
-	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
+	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")
+	'''clinica_id = fields.Many2one('res.company',ondelete='cascade', string="Clínica")'''		
 
 ''' Relacionar com a classe Produto '''
 #class Medicamento(models.Model):
@@ -68,6 +69,7 @@ class Clinica(models.Model):
 
     razão_social = fields.Text(string="Razão Social")
     consultorio_ids = fields.One2many('vetclin.consultorio', 'clinica_id')
+    '''consulta_id = fields.Many2one('vetclin.consulta', 'consulta_id')'''
 
 class Consultorio(models.Model):
     _name = 'vetclin.consultorio'

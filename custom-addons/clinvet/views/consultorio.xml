@@ -10,7 +10,7 @@
 					<sheet>
 						<group>
 							<field name='id' invisible='True'/>
-							<field name='nome' placeholder='Nome'/>
+							<field name='name' placeholder='Nome'/>
                             <field name='ramal' placeholder='Ramal'/>
 							<field name='descricao' placeholder='Descrição' />
 							<field name='clinica_id' widget='selection'/>
@@ -27,7 +27,7 @@
 			<field name='arch' type='xml'>
 				<tree>
 					<field name='id' />
-                    <field name='nome' />
+                    <field name='name' />
 					<field name='ramal' />
 					<field name='descricao' />
 					<field name='clinica_id' />                   
@@ -42,7 +42,7 @@
 			<field name='arch' type='xml'>
 				<search>
 					<field name='id' />
-                    <field name='nome' />
+                    <field name='name' />
 					<field name='ramal' />
 					<field name='descricao' />
                     <field name='clinica_id'/>
