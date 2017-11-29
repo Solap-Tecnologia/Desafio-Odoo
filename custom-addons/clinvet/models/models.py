@@ -27,21 +27,12 @@ class Consulta(models.Model):
 
 	id = fields.Integer()
 	observacao = fields.Text(string="Observações")
+	preco_total = fields.Float(string="Preço Total", digits=(7,2))
 	servicos_id = fields.Many2many('vetclin.servico')
-	#medicamento_id = fields.One2many('vetclin.medicamento' , 'consulta_id', string="Medicamento")
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
-
-''' Relacionar com a classe Produto '''
-#class Medicamento(models.Model):
-#	_name = 'vetclin.medicamento'
-#	_description = 'Medicamento'
-#
-#	id = fields.Integer()
-#	name = fields.Char(string="Medicamento")
-#	comp_quimica = fields.Text(string="Composição Química")
-#	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Medicamento")
+	#produtos_id = fields.Many2many('product.template')
 
 class Animal(models.Model):
 	_name = 'vetclin.animal'
@@ -51,16 +42,8 @@ class Animal(models.Model):
 	name = fields.Char(string="Nome do animal")
 	tipodeanimal_id = fields.Many2one('vetclin.tipodeanimal', ondelete='cascade', string="Tipo de animal")
 	cliente_id = fields.Many2one('res.partner', ondelete='cascade', string="Dono")
-	consulta_id = fields.One2many('vetclin.consulta' , 'animal_id', string="animal")
+	consulta_ids = fields.One2many('vetclin.consulta' , 'animal_id', string="Animal")
 
-''' Extender o model product.template '''
-#class Produto(models.Model):
-#	_name = 'vetclin.produto'
-#	_description = 'Produto'
-#
-#	id = fields.Integer()
-#	name = fields.Char(string="Nome")
-#	descricao = fields.Text(string="Descrição do Produto")
 
 class Clinica(models.Model):
     _inherit =  'res.company'
@@ -101,3 +84,22 @@ class Partner(models.Model):
 	#relações
 	animal_ids = fields.One2many('vetclin.animal', 'cliente_id', string="Animais")
 	consulta_ids = fields.One2many('vetclin.consulta', 'veterinario_id', string="Veterinários")
+
+''' Extender o model product.template '''
+#class Produto(models.Model):
+#	_name = 'vetclin.produto'
+#	_description = 'Produto'
+#
+#	id = fields.Integer()
+#	name = fields.Char(string="Nome")
+#	descricao = fields.Text(string="Descrição do Produto")
+
+''' Relacionar com a classe Produto '''
+#class Medicamento(models.Model):
+#	_name = 'vetclin.medicamento'
+#	_description = 'Medicamento'
+#
+#	id = fields.Integer()
+#	name = fields.Char(string="Medicamento")
+#	comp_quimica = fields.Text(string="Composição Química")
+#	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Medicamento")
