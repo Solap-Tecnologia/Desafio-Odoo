@@ -31,8 +31,23 @@ class Consulta(models.Model):
 	servicos_id = fields.Many2many('vetclin.servico')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
+<<<<<<< HEAD
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
 	#produtos_id = fields.Many2many('product.template')
+=======
+	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")
+	'''clinica_id = fields.Many2one('res.company',ondelete='cascade', string="Clínica")'''		
+
+''' Relacionar com a classe Produto '''
+#class Medicamento(models.Model):
+#	_name = 'vetclin.medicamento'
+#	_description = 'Medicamento'
+#
+#	id = fields.Integer()
+#	name = fields.Char(string="Medicamento")
+#	comp_quimica = fields.Text(string="Composição Química")
+#	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Medicamento")
+>>>>>>> Morena
 
 class Animal(models.Model):
 	_name = 'vetclin.animal'
@@ -51,6 +66,7 @@ class Clinica(models.Model):
 
     razão_social = fields.Text(string="Razão Social")
     consultorio_ids = fields.One2many('vetclin.consultorio', 'clinica_id')
+    '''consulta_id = fields.Many2one('vetclin.consulta', 'consulta_id')'''
 
 class Consultorio(models.Model):
     _name = 'vetclin.consultorio'
