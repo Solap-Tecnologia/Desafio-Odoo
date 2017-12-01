@@ -15,7 +15,8 @@
     'category': 'Management',
     'version': '1.1',
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base',
+                'product'],
     # always loaded
     'data': [
         'views/menu.xml',

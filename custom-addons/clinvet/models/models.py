@@ -42,7 +42,24 @@ class Animal(models.Model):
 	name = fields.Char(string="Nome do animal")
 	tipodeanimal_id = fields.Many2one('vetclin.tipodeanimal', ondelete='cascade', string="Tipo de animal")
 	cliente_id = fields.Many2one('res.partner', ondelete='cascade', string="Dono")
+<<<<<<< HEAD
 	consulta_ids = fields.One2many('vetclin.consulta' , 'animal_id', string="Animal")
+=======
+	consulta_id = fields.One2many('vetclin.consulta' , 'animal_id', string="animal")
+
+class Produto(models.Model):
+	_inherit = 'product.template'
+	#_name = 'vetclin.produto'
+	_description = 'Custom Products'
+
+	#id substitui id
+	#name substitui nome_produto = fields.Char(string="Produto")
+	#description substitui desc_produto = fields.Text(string="Descrição do Produto")
+	#list_price lista precos
+	#lst_price tbm 
+	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
+#	,'id','id'
+>>>>>>> leonardo
 
 class Clinica(models.Model):
     _inherit =  'res.company'
