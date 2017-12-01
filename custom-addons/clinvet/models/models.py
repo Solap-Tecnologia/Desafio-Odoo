@@ -56,12 +56,17 @@ class Animal(models.Model):
 	consulta_id = fields.One2many('vetclin.consulta' , 'animal_id', string="animal")
 
 class Produto(models.Model):
-	_name = 'vetclin.produto'
-	_description = 'Produto'
+	_inherit = 'product.template'
+	#_name = 'vetclin.produto'
+	_description = 'Custom Products'
 
-	id = fields.Integer()
-	nome_produto = fields.Char(string="Produto")
-	desc_produto = fields.Char(string="Descrição do Produto")
+	#id substitui id
+	#name substitui nome_produto = fields.Char(string="Produto")
+	#description substitui desc_produto = fields.Text(string="Descrição do Produto")
+	#list_price lista precos
+	#lst_price tbm 
+	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
+#	,'id','id'
 
 class Clinica(models.Model):
     _inherit =  'res.company'
