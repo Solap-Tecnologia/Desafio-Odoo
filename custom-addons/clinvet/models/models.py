@@ -27,12 +27,21 @@ class Consulta(models.Model):
 
 	id = fields.Integer()
 	observacao = fields.Text(string="Observações")
-	preco_total = fields.Float(string="Preço Total", digits=(7,2))
+	preco_total = fields.Float(string="Preço Total", digits=(7,2), compute='calc_preco_total', readonly=True)
 	servicos_id = fields.Many2many('vetclin.servico')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
 	#produtos_id = fields.Many2many('product.template')
+
+	@api.one
+	@api.depends('servicos_id', 'servicos_id.preco')
+	def calc_preco_total(self):
+		precoatual = 0
+		for servico in self.servicos_id:
+			precoatual += servico.preco
+		self.preco_total = precoatual
+
 
 class Animal(models.Model):
 	_name = 'vetclin.animal'
