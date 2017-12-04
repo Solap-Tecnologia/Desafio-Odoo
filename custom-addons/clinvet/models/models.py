@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from datetime import timedelta
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 
@@ -31,6 +31,7 @@ class Consulta(models.Model):
 	servicos_id = fields.Many2many('vetclin.servico')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
+<<<<<<< HEAD
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
 	#produtos_id = fields.Many2many('product.template')
 
@@ -41,6 +42,47 @@ class Consulta(models.Model):
 		for servico in self.servicos_id:
 			precoatual += servico.preco
 		self.preco_total = precoatual
+=======
+	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")
+	start_date = fields.Datetime()
+	duration = fields.Float(digits=(6, 2), help="Duração em dias")
+	end_date = fields.Datetime(string="Agendamento de Consultas")
+	name = fields.Text(string='Consultas')
+    
+	'''@api.depends('start_date', 'duration')
+	def _get_end_date(self):
+		for r in self:
+			if not (r.start_date and r.duration):
+				r.end_date = r.start_date
+				continue
+
+			start = fields.Datetime.from_string(r.start_date)
+			duration = timedelta(days=r.duration)
+			r.end_date = start + duration
+
+	def _set_end_date(self):
+		for r in self:
+			if not (r.start_date and r.end_date):
+				continue
+
+			start_date = fields.Datetime.from_string(r.start_date)
+			end_date = fields.Datetime.from_string(r.end_date)
+			r.duration = (end_date - start_date).days''' 
+
+
+
+
+	'''clinica_id = fields.Many2one('res.company',ondelete='cascade', string="Clínica")'''	
+
+#class CalendarioDeConsulta(models.Model):
+#    _name = "vetclin.calendario" 
+#    _columns = {
+#        'name': fields.Char('Calendário',size=20,required=True),
+#        'date_start':fields.Datetime(string='Início Consulta'),
+#       'date_stop':fields.Datetime(string='Fim Consulta'),
+#    }
+    	
+>>>>>>> Morena
 
 
 class Animal(models.Model):
@@ -109,6 +151,8 @@ class Consultorio(models.Model):
     descricao = fields.Text(string="Descrição")
     ramal = fields.Char(string="Ramal")
     clinica_id = fields.Many2one('res.company', ondelete='cascade')
+#    consulta_id = fields.Many2one('vetclin.consulta', 'consulta_id')
+
 
 class Partner(models.Model):
 	_inherit = 'res.partner'

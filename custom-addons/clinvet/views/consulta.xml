@@ -14,8 +14,11 @@
             				<field name="servicos_id" widget="many2many_tags" options="{'no_create_edit': True}"/>
  							<field name='animal_id' widget='selection'/>
 							<field name='veterinario_id' widget='selection' domain="[('is_veterinario', '=', True)]"/>
+							<!--field name='calendar_consulta'/-->
 							<field name='consultorio_id' widget='selection'/>
 							<field name='observacao' />
+							<field name='start_date'/>
+							<field name='end_date'/>
 						</group>
 						<group>
 							<field name='preco_total' />
@@ -38,12 +41,25 @@
 				</tree>
 			</field>
 		</record>
-		
+
+		<record model='ir.ui.view' id='consulta_calendar_view'>
+			<field name='name'>consulta.calendar</field>
+			<field name='model'>vetclin.consulta</field>
+			<field name='arch' type='xml'>
+				<calendar string='Agendamento de Consulta' date_start='start_date' date_stop='end_date' color='consultorio_id'>
+					<field name='name'/>
+					<field name='start_date'/>
+					<field name='end_date'/>
+				</calendar>
+			</field>
+		</record>
+
+	
 		<record model='ir.actions.act_window' id='janela_cadastro_consultas'>
 			<field name='name'>Consultas</field>
 			<field name='res_model'>vetclin.consulta</field>
 			<field name='view_type'>form</field>
-			<field name='view_mode'>tree,form</field>
+			<field name='view_mode'>tree,calendar,form</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Registro de Consultas</p>
 			</field>
