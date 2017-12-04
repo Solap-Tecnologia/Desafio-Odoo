@@ -3,62 +3,172 @@
 	<data>
 		
 		<!-- Form view -->
-		<record model='ir.ui.view' id='produto_form_view'>
-			<field name='name'>produto.form</field>
-			<field name='model'>vetclin.produto</field>
-			<field name='arch' type='xml'>
-				<form string='Formulario Cadastro de Produtos'>
-					<sheet>
-						<group>
-							<field name='nome_produto' placeholder='Nome do Produto'/>
-							<field name='desc_produto' placeholder='Descrição do Produto' />
-						</group>
-					</sheet>
-				</form>
+		<record model="ir.ui.view" id="produto_form_view">
+			<field name="name">product.template.produto.form</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_form_view" />
+			<field name="arch" type="xml">
+			
+				<!--<xpath expr='//field[@name="standard_price"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+				<field name="standard_price" position="replace" >
+    				<field name="standard_price" attrs="{'invisible': True}"/>
+				</field>
+				<xpath expr="//field[@name='standard_price']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//label[@for='standard_price']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>-->				
+				<xpath expr="//button[@name='toggle_active']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//page[@name='sales']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//page[@name='inventory']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//page[@name='notes']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='sale_ok']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//label[@for='sale_ok']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='purchase_ok']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//label[@for='purchase_ok']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='type']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<!--<xpath expr="//field[@name='barcode']" position="attributes">
+					<attribute name="invisible">0</attribute>
+				</xpath>
+				<xpath expr="//field[@name='categ_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>-->		
+				
+				<xpath expr="//label[@for='name']" position="replace">
+					<label string='Produto'/>
+				</xpath>
+
+				<xpath expr="//field[@name='standard_price']" position="replace">
+					<field name="description" default_focus="1" placeholder="Descrição do Produto"/>
+				</xpath>
+				<xpath expr="//label[@for='standard_price']" position="replace">
+					<label string='Descrição'/>
+				</xpath>
+				<xpath expr="//field[@name='categ_id']" position="replace">
+					<field name="medic_ids" options="{'no_create_edit': True}" widget="many2many_tags" placeholder="Medicamentos do Produto"/>
+				</xpath>
+
+				<xpath expr="//field[@name='name']" position="replace">
+					<field name="name" default_focus="1" placeholder="Nome do Produto"/>
+				</xpath>
+
+				<!--<group>
+					<field name="medic_ids" options="{'no_create_edit': True}" widget="many2many_tags" placeholder="Medicamentos do Produto"/>			
+				</group>
+				<xpath expr="//field[@name='list_price']" position="replace">
+					<label string="Preço do Produto"/>
+					<field name="list_price" default_focus="1" placeholder="Preço do Produto" />
+				</xpath>
+				<xpath expr="//div[@name='button_box']" position="before">
+					<field name="description" invisible="True"/>
+				</xpath>
+		    	<xpath expr="//div[@name='button_box']" position="attributes">
+					<attribute name="invisible"></attribute>
+				</xpath>
+				<field name="is_company" position="replace">
+   					<field name="is_company" invisible="1"/>
+				</field>
+				<xpath expr="//div[@name='button_box']" position="replace">
+					<field name='button_box' invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='description_sale']" position="replace">
+					<field name="description_sale" attrs="{'invisible': True}"/>
+				</xpath>
+				<xpath expr="//div[@name='options']" position="attributes">
+					<attribute name="invisible"></attribute>
+				</xpath>										
+				<xpath expr="//field[@name='type']" position="replace">
+					<field name="type" attrs="{'invisible': True}"/>
+				</xpath>
+				<xpath expr="//field[@name='categ_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='image_medium']" position="attributes">
+					<attribute name="invisible"></attribute>
+				</xpath>
+				<xpath expr="//field[@name='sale_ok']" position="attributes">
+					<attribute name="invisible"></attribute>
+				</xpath>	
+				<xpath expr="//field[@name='purchase_ok']" position="attributes">
+					<attribute name="invisible"></attribute>
+				</xpath>	
+				<xpath expr="//field[@name='standard_price']" position="replace">
+					<field name="standard_price" attrs="{'invisible': True}"/>
+				</xpath>
+
+				<xpath expr="//notebook" position="attributes">
+					<attribute name="invisible"></attribute>
+				</xpath>
+				
+				<group>
+				    <field name="medic_ids" widget="many2many_selection" placeholder="Medicamentos do Produto"/>  
+				</group>-->
 			</field>
 		</record>
 
 		<!-- Tree view -->
-		<record model='ir.ui.view' id='produto_tree_view'>
-			<field name='name'>produto.tree</field>
-			<field name='model'>vetclin.produto</field>
-			<field name='arch' type='xml'>
+		<!--<record model="ir.ui.view" id="produto_tree_view">
+			<field name="name">produto.tree</field>
+			<field name="model">vetclin.produto</field>
+			<field name="arch" type="xml">
 				<tree>
-					<field name='id' />
-					<field name='nome_produto' />
-					<field name='desc_produto' />
+					<field name="id" />
+					<field name="nome_produto" />
+					<field name="desc_produto" />
 				</tree>			
 			</field>
-		</record>
+		</record>-->
 
 		<!-- Search view -->
-		<record model='ir.ui.view' id='produto_search_view'>
-			<field name='name'>produto.search</field>
-			<field name='model'>vetclin.produto</field>
-			<field name='arch' type='xml'>
+		<!--<record model="ir.ui.view" id="produto_search_view">
+			<field name="name">produto.search</field>
+			<field name="model">vetclin.produto</field>
+			<field name="arch" type="xml">
 				<search>
-					<field name='id' />
-					<field name='nome_produto' />
-					<field name='desc_produto' />
+					<field name="id" />
+					<field name="nome_produto" />
+					<field name="desc_produto" />
 				</search>			
 			</field>
-		</record>
+		</record>-->
 
 		<!-- Registro que tem ação de abrir o form -->
-		<record model='ir.actions.act_window' id='janela_cadastro_produto'>
-			<field name='name'>Produtos</field>
-			<field name='res_model'>vetclin.produto</field>
-			<field name='view_type'>form</field>
-			<field name='view_mode'>tree,form</field>
-			<field name='help' type='html'>
-				<p class='oe_view_nocontent_create'>Cadastre os produtos</p>
+		<record model="ir.actions.act_window" id="janela_cadastro_produto">
+			<field name="name">Produtos</field>
+			<field name="res_model">product.template</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="produto_form_view"/>
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">Cadastre os produtos</p>
 			</field>
 		</record>
 
 		<!-- Menu que abrirá o form ou o tree view-->
-		<menuitem id='submenu_produto'
-			name='Produtos'
-			parent='menu_esquerdo_cadastros'
-			action='janela_cadastro_produto'/>
+		<menuitem id="submenu_produto"
+			name="Produtos"
+			parent="menu_esquerdo_cadastros"
+			action="janela_cadastro_produto"/>
 	</data>
 </odoo>

@@ -61,9 +61,9 @@ class Produto(models.Model):
 	_description = 'Custom Products'
 
 	#id substitui id
-	#name substitui nome_produto = fields.Char(string="Produto")
-	#description substitui desc_produto = fields.Text(string="Descrição do Produto")
-	#list_price lista precos
+	name = fields.Char(string="Produto")
+	description  = fields.Text(string="Descrição")
+	list_price = fields.Float(string="Preço de Venda")
 	#lst_price tbm 
 	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
 #	,'id','id'
