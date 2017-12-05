@@ -12,7 +12,7 @@
 						<group>
 							<field name='id' invisible='True' />
             				<field name="servicos_id" widget="many2many_tags" options="{'no_create_edit': True}"/>
-            				<field name="produtos_id" widget="many2many_tags" options="{'no_create_edit': True}" domain="[('is_prod_novo', '=', True)]"/>
+            				<field name="produtos_id" widget="many2many_tags" options="{'no_create_edit': True}" />
  							<field name='animal_id' widget='selection'/>
 							<field name='veterinario_id' widget='selection' domain="[('is_veterinario', '=', True)]"/>
 							<field name='consultorio_id' widget='many2one' options="{'no_create_edit': True}"/>
@@ -35,8 +35,8 @@
 				<tree string='Registro de Consultas'>
 					<field name='id'/>
 			        <field name='servicos_id'/>
-					<field name='animal_id' widget='selection'/>
-					<field name='consultorio_id' widget='selection'/>
+					<field name='animal_id'/>
+					<field name='consultorio_id'/>
 					<field name='observacao'/>
 				</tree>
 			</field>
@@ -46,7 +46,10 @@
 			<field name='name'>consulta.calendar</field>
 			<field name='model'>vetclin.consulta</field>
 			<field name='arch' type='xml'>
-				<calendar string='Agendamento de Consulta' date_start='start_date' date_stop='end_date' color='consultorio_id'>
+				<calendar string='Agendamento de Consulta' 
+					date_start='start_date' 
+					date_stop='end_date' 
+					color='consultorio_id'>
 					<field name='name'/>
 					<field name='start_date'/>
 					<field name='end_date'/>
