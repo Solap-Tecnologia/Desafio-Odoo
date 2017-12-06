@@ -8,24 +8,6 @@
             <field name="model">res.company</field>
             <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
-<<<<<<< HEAD
-                <form string="Clinica">
-                  <sheet>
-                    <field name="logo" widget="image"  class="oe_avatar"/>
-                    <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1>
-                            <field name="name" placeholder="Nome da Clínica"/>
-                        </h1>
-                    </div>
-
-		    	<xpath expr='//div[@name="partner_id"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="street2"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-=======
-
             	<xpath expr='//notebook' position='attributes'>
             		<attribute name='invisible'>0</attribute>
             	</xpath>
@@ -36,7 +18,6 @@
 
             	<xpath expr='//field[@name="street2"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
->>>>>>> Morena
 				</xpath>
 
 				<xpath expr='//field[@name="report_header"]' position='attributes'>
@@ -98,41 +79,10 @@
 				<xpath expr='//field[@name="partner_id"]' position='replace'>
 					<field string= "Nome da Clínica" name="partner_id" default_focus="1" placeholder="Nome da Clínica" />
 				</xpath>
-
-
 		    </field>
 		</record>
 
-
-
-<!--record model="ir.ui.view" id="view_company_form">
-    <field name="name">res.company.form.inherit</field>
-    <field name="model">res.company</field>
-    <field name="inherit_id" ref="base.view_company_form"/>
-    <field name="arch" type="xml">
-        <data>
-            <xpath
-                expr="//field[@name='address']/form/field[@name='email']"
-                position="after">
-                <field name="age"/>
-            </xpath>
-            <xpath
-                expr="//field[@name='address']/tree/field[@name='email']"
-                position="after">
-                <field name="age"/>
-            </xpath>
-        </data>
-    </field>
-</record-->
-
-
-
-
-
-<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-
-		
-                <!-- Tree view -->
+         <!-- Tree view -->
         <record id="view_company_tree" model="ir.ui.view">
             <!--field name="name">res.company.tree</field-->
             <field name="name">clinica.tree</field>
@@ -153,7 +103,7 @@
 			<field name='arch' type='xml'>
 				<search>
 					<field name='id' />
-                                        <field name='name' />
+                    <field name='name' />
 					<field name='company_registry' />
 					<field name='street' />
 					<field name='city' />
