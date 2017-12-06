@@ -27,9 +27,9 @@
 					<attribute name='invisible'>1</attribute>
 				</xpath>
 
-				<xpath expr='//label[@for="street"]' position='replace'>
-					<label string='Endereço' />
-				</xpath>
+				<!--<xpath expr='//label[@for="street"]' position='replace'>
+					<label string='Endereço'/>
+				</xpath>-->
 
 				<xpath expr='//field[@name="vat"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>

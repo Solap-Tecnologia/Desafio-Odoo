@@ -31,7 +31,7 @@ class Consulta(models.Model):
 	servicos_id = fields.Many2many('vetclin.servico')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
-<<<<<<< HEAD
+
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
 	#produtos_id = fields.Many2many('product.template')
 
@@ -42,8 +42,7 @@ class Consulta(models.Model):
 		for servico in self.servicos_id:
 			precoatual += servico.preco
 		self.preco_total = precoatual
-=======
-	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")
+
 	start_date = fields.Datetime()
 	duration = fields.Float(digits=(6, 2), help="Duração em dias")
 	end_date = fields.Datetime(string="Agendamento de Consultas")
@@ -81,9 +80,7 @@ class Consulta(models.Model):
 #        'date_start':fields.Datetime(string='Início Consulta'),
 #       'date_stop':fields.Datetime(string='Fim Consulta'),
 #    }
-    	
->>>>>>> Morena
-
+    
 
 class Animal(models.Model):
 	_name = 'vetclin.animal'
@@ -93,10 +90,8 @@ class Animal(models.Model):
 	name = fields.Char(string="Nome do animal")
 	tipodeanimal_id = fields.Many2one('vetclin.tipodeanimal', ondelete='cascade', string="Tipo de animal")
 	cliente_id = fields.Many2one('res.partner', ondelete='cascade', string="Dono")
-<<<<<<< HEAD
 	consulta_ids = fields.One2many('vetclin.consulta' , 'animal_id', string="Animal")
-=======
-	consulta_id = fields.One2many('vetclin.consulta' , 'animal_id', string="animal")
+
 
 class Produto(models.Model):
 	_inherit = 'product.template'
@@ -108,9 +103,9 @@ class Produto(models.Model):
 	description  = fields.Text(string="Descrição")
 	list_price = fields.Float(string="Preço de Venda")
 	#lst_price tbm 
-	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
+	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
+	#is_produto_novo = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 #	,'id','id'
->>>>>>> leonardo
 
 class Clinica(models.Model):
     _inherit =  'res.company'
@@ -243,11 +238,11 @@ class Partner(models.Model):
 #	descricao = fields.Text(string="Descrição do Produto")
 
 ''' Relacionar com a classe Produto '''
-#class Medicamento(models.Model):
-#	_name = 'vetclin.medicamento'
-#	_description = 'Medicamento'
-#
-#	id = fields.Integer()
-#	name = fields.Char(string="Medicamento")
-#	comp_quimica = fields.Text(string="Composição Química")
-#	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Medicamento")
+class Medicamento(models.Model):
+	_name = 'vetclin.medicamento'
+	_description = 'Medicamento'
+
+	id = fields.Integer()
+	name = fields.Char(string="Medicamento")
+	comp_quimica = fields.Text(string="Composição Química")
+	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Medicamento")
