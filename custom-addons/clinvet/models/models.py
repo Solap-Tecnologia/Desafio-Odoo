@@ -19,15 +19,6 @@ class Raca(models.Model):
 	especie_id = fields.Many2one('vetclin.especie', ondelete='cascade')
 	especie_name = fields.Char(related='especie_id.name')
 
-#class TipoDeAnimal(models.Model):
-#	_name = 'vetclin.tipodeanimal'
-#	_description = 'Tipo de Animal'
-#
-#	id = fields.Integer()
-#	name = fields.Char(string="Espécie")
-#	raca = fields.Char(string="Raça")
-	#animal_ids = fields.One2many('vetclin.animal', 'tipodeanimal_id', string="Animais")
-
 class Servico(models.Model):
 	_name = 'vetclin.servico'
 	_description = 'Serviços'
