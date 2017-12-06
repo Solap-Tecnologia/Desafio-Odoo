@@ -101,7 +101,7 @@
 			<field name='res_model'>res.partner</field>
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
-			<field name='view_id' ref='vetclin_res_partner_view2' />
+			<field name="view_id" ref="base.view_partner_tree"/>
 			<field name='context'>{'default_is_veterinario':True}</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>
@@ -115,7 +115,7 @@
 			<field name='res_model'>res.partner</field>
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
-			<field name='view_id' ref='vetclin_res_partner_view2' />
+			<field name="view_id" ref="base.view_partner_tree"/>
 			<field name='context'>{'default_is_dono':True}</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>

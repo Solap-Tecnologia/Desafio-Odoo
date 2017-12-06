@@ -29,19 +29,32 @@ class Consulta(models.Model):
 	observacao = fields.Text(string="Observações")
 	preco_total = fields.Float(string="Preço Total", digits=(7,2), compute='calc_preco_total', readonly=True)
 	servicos_id = fields.Many2many('vetclin.servico')
+	produtos_id = fields.Many2many('product.template')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
+<<<<<<< HEAD
 
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
 	#produtos_id = fields.Many2many('product.template')
 
+=======
+	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")
+	start_date = fields.Datetime(string="Data e Horário de início")
+	duration = fields.Float(digits=(6, 2), help="Duração em dias")
+	end_date = fields.Datetime(string="Término da Consulta")
+	name = fields.Text(string='Consultas')
+    
+>>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 	@api.one
-	@api.depends('servicos_id', 'servicos_id.preco')
+	@api.depends('servicos_id', 'servicos_id.preco', 'produtos_id', 'produtos_id.list_price')
 	def calc_preco_total(self):
 		precoatual = 0
 		for servico in self.servicos_id:
 			precoatual += servico.preco
+		for produto in self.produtos_id:
+			precoatual += produto.list_price
 		self.preco_total = precoatual
+<<<<<<< HEAD
 
 	start_date = fields.Datetime()
 	duration = fields.Float(digits=(6, 2), help="Duração em dias")
@@ -81,6 +94,8 @@ class Consulta(models.Model):
 #       'date_stop':fields.Datetime(string='Fim Consulta'),
 #    }
     
+=======
+>>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 
 class Animal(models.Model):
 	_name = 'vetclin.animal'
@@ -91,21 +106,26 @@ class Animal(models.Model):
 	tipodeanimal_id = fields.Many2one('vetclin.tipodeanimal', ondelete='cascade', string="Tipo de animal")
 	cliente_id = fields.Many2one('res.partner', ondelete='cascade', string="Dono")
 	consulta_ids = fields.One2many('vetclin.consulta' , 'animal_id', string="Animal")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 
 class Produto(models.Model):
 	_inherit = 'product.template'
-	#_name = 'vetclin.produto'
 	_description = 'Custom Products'
 
-	#id substitui id
 	name = fields.Char(string="Produto")
 	description  = fields.Text(string="Descrição")
 	list_price = fields.Float(string="Preço de Venda")
+<<<<<<< HEAD
 	#lst_price tbm 
 	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
 	#is_produto_novo = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 #	,'id','id'
+=======
+	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
+>>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 
 class Clinica(models.Model):
     _inherit =  'res.company'
@@ -163,8 +183,6 @@ class Consultorio(models.Model):
     descricao = fields.Text(string="Descrição")
     ramal = fields.Char(string="Ramal")
     clinica_id = fields.Many2one('res.company', ondelete='cascade')
-#    consulta_id = fields.Many2one('vetclin.consulta', 'consulta_id')
-
 
 class Partner(models.Model):
 	_inherit = 'res.partner'
@@ -227,7 +245,11 @@ class Partner(models.Model):
 			digito = 11 - (soma % 11)		
 		return digito
 
+class Medicamento(models.Model):
+	_name = 'vetclin.medicamento'
+	_description = 'Medicamento'
 
+<<<<<<< HEAD
 ''' Extender o model product.template '''
 #class Produto(models.Model):
 #	_name = 'vetclin.produto'
@@ -242,6 +264,8 @@ class Medicamento(models.Model):
 	_name = 'vetclin.medicamento'
 	_description = 'Medicamento'
 
+=======
+>>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 	id = fields.Integer()
 	name = fields.Char(string="Medicamento")
 	comp_quimica = fields.Text(string="Composição Química")
