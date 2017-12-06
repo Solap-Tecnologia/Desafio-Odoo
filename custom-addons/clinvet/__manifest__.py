@@ -20,15 +20,17 @@
     # always loaded
     'data': [
         'views/menu.xml',
-        'views/tipodeanimal.xml',
+        #'views/tipodeanimal.xml',
         'views/animal.xml',
         'views/cliente_veterinario.xml',
         'views/servico.xml',
         'views/produto.xml',
         'views/medicamento.xml',
-        'views/clinica.xml',
+        #'views/clinica.xml',
         'views/consultorio.xml',
         'views/consulta.xml',
+        'views/especie.xml',
+        'views/raca.xml',
         #'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
