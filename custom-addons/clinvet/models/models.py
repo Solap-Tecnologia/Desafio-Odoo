@@ -3,14 +3,30 @@ from datetime import timedelta
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 
-class TipoDeAnimal(models.Model):
-	_name = 'vetclin.tipodeanimal'
-	_description = 'Tipo de Animal'
+class Especie(models.Model):
+	_name = 'vetclin.especie'
+	_description = 'Espécie'
 
 	id = fields.Integer()
 	name = fields.Char(string="Espécie")
-	raca = fields.Char(string="Raça")
-	animal_ids = fields.One2many('vetclin.animal', 'tipodeanimal_id', string="Animais")
+
+class Raca(models.Model):
+	_name = 'vetclin.raca'
+	_description = 'Raças'
+
+	id = fields.Integer()
+	name = fields.Char(string="Raça")
+	especie_id = fields.Many2one('vetclin.especie', ondelete='cascade')
+	especie_name = fields.Char(related='especie_id.name')
+
+#class TipoDeAnimal(models.Model):
+#	_name = 'vetclin.tipodeanimal'
+#	_description = 'Tipo de Animal'
+#
+#	id = fields.Integer()
+#	name = fields.Char(string="Espécie")
+#	raca = fields.Char(string="Raça")
+	#animal_ids = fields.One2many('vetclin.animal', 'tipodeanimal_id', string="Animais")
 
 class Servico(models.Model):
 	_name = 'vetclin.servico'
@@ -40,7 +56,7 @@ class Consulta(models.Model):
 =======
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")
 	start_date = fields.Datetime(string="Data e Horário de início")
-	duration = fields.Float(digits=(6, 2), help="Duração em dias")
+	duration = fields.Float(digits=(6, 2), help="Duração da consulta")
 	end_date = fields.Datetime(string="Término da Consulta")
 	name = fields.Text(string='Consultas')
     
@@ -99,17 +115,25 @@ class Consulta(models.Model):
 
 class Animal(models.Model):
 	_name = 'vetclin.animal'
-	_description = 'Animal'
+	_description = 'Animal'	
 
 	id = fields.Integer()
 	name = fields.Char(string="Nome do animal")
-	tipodeanimal_id = fields.Many2one('vetclin.tipodeanimal', ondelete='cascade', string="Tipo de animal")
+	#tipodeanimal_id = fields.Many2one('vetclin.tipodeanimal', ondelete='cascade', string="Tipo de animal")
 	cliente_id = fields.Many2one('res.partner', ondelete='cascade', string="Dono")
+<<<<<<< HEAD
 	consulta_ids = fields.One2many('vetclin.consulta' , 'animal_id', string="Animal")
 <<<<<<< HEAD
 
 =======
 >>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
+=======
+	especie_id = fields.Many2one('vetclin.especie', ondelete='cascade', string="Espécie")
+	raca_id = fields.Many2one('vetclin.raca', ondelete='cascade', string="Raça")	
+	#cliente_name = fields.Char(related='cliente_id.name') 
+	#especie_name = fields.Char(related='especie_id.name')
+	#raca_name = fields.Char(related='raca_id.name')
+>>>>>>> NewModelagemAnimal
 
 class Produto(models.Model):
 	_inherit = 'product.template'
