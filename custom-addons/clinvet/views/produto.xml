@@ -47,12 +47,7 @@
 				<xpath expr="//field[@name='categ_id']" position="replace">
 					<field name="medic_ids" options="{'no_create': True}" widget="many2many_tags" placeholder="Medicamentos do Produto"/>
 				</xpath>
-<<<<<<< HEAD
-				<!--<xpath expr="//field[@name='categ_id']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>-->
-=======
->>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
+
 				<xpath expr="//field[@name='name']" position="replace">
 					<field name="name" default_focus="1" placeholder="Nome do Produto"/>
 				</xpath>

@@ -6,7 +6,9 @@
         <record id="view_clinica_form" model="ir.ui.view">
             <field name="name">clinica.form</field>
             <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
+<<<<<<< HEAD
                 <form string="Clinica">
                   <sheet>
                     <field name="logo" widget="image"  class="oe_avatar"/>
@@ -22,63 +24,82 @@
 				</xpath>
 				<xpath expr='//field[@name="street2"]' position='attributes'>
 					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="report_header"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="website"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="vat"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="currency_id"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="parent_id"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="sequence"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//field[@name="report_footer"]' position='attributes'>
-					<attribute name='invisible'></attribute>
-				</xpath>
-				<xpath expr='//group[@name="social_media"]' position='attributes'>
-					<attribute name='invisible'></attribute>
+=======
+
+            	<xpath expr='//notebook' position='attributes'>
+            		<attribute name='invisible'>0</attribute>
+            	</xpath>
+
+            	<xpath expr='//page' position='attributes'>
+            		<attribute name='invisible'></attribute>
+            	</xpath>
+
+            	<xpath expr='//field[@name="street2"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+>>>>>>> Morena
 				</xpath>
 
-				<!--<xpath expr='//label[@name="name"]' position='replace'>
-					<field name="name" default_focus="1" placeholder="Nome da Clínica" />
-				</xpath>-->
+				<xpath expr='//field[@name="report_header"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+
+				<xpath expr='//field[@name="website"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+
+				<xpath expr='//field[@name="vat"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+
+				<xpath expr='//field[@name="currency_id"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+
+				<xpath expr='//field[@name="sequence"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+
+				<xpath expr='//field[@name="report_footer"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+
+				<xpath expr='//group[@name="social_media"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+
+				<xpath expr='//group/label' position='replace'>
+					<label for="street" string="Endereço" default_focus="1" placeholder="Avenida Travessa Rua ..." />
+				</xpath>
+
+				<xpath expr='//field[@name="street"]' position='replace'>
+					<field name="street" string="Endereço" default_focus="1" placeholder="Endereço" class="o_address_street" />
+				</xpath>
+
+				<xpath expr='//field[@name="city"]' position='replace'>
+					<field string= "Cidade" name="city" default_focus="1" placeholder="Cidade" />
+				</xpath>
+
+				<xpath expr='//field[@name="state_id"]' position='replace'>
+					<field string= "Estado" name="state_id" default_focus="1" placeholder="Estado" />
+				</xpath>
+
+				<xpath expr='//field[@name="zip"]' position='replace'>
+					<field string= "CEP" name="zip" default_focus="1" placeholder="CEP" />
+				</xpath>
+
+				<xpath expr='//field[@name="country_id"]' position='replace'>
+					<field string= "País" name="country_id" default_focus="1" placeholder="País" />
+				</xpath>
 
 				<xpath expr='//field[@name="company_registry"]' position='replace'>
-					<field name="company_registry" default_focus="1" placeholder="CNPJ" />
-				</xpath>
-				<xpath expr='//field[@name="street"]' position='replace'>
-					<field name="street" default_focus="0" placeholder="Avenida/Rua/Travessa" />
-				</xpath>
-                                <xpath expr='//field[@name="city"]' position='replace'>
-					<field name="city" default_focus="1" placeholder="Cidade" />
-				</xpath>
-                                <xpath expr='//field[@name="state_id"]' position='replace'>
-					<field name="state_id" default_focus="1" placeholder="Estado" />
-				</xpath>
-                                <xpath expr='//field[@name="zip"]' position='replace'>
-					<field name="zip" default_focus="1" placeholder="CEP" />
-				</xpath>
-                                <xpath expr='//field[@name="country_id"]' position='replace'>
-					<field name="country_id" default_focus="1" placeholder="País" />
-				</xpath>
-                                <xpath expr='//field[@name="phone"]' position='replace'>
-					<field name="phone" default_focus="1" placeholder="Telefone" />
-				</xpath>
-                                <xpath expr='//field[@name="email"]' position='replace'>
-					<field name="email" default_focus="1" placeholder="E-mail" />
+					<field string= "CNPJ da Empresa" name="company_registry" default_focus="1" placeholder="CNPJ" />
 				</xpath>
 
-                        </sheet>
-                      </form>
+				<xpath expr='//field[@name="partner_id"]' position='replace'>
+					<field string= "Nome da Clínica" name="partner_id" default_focus="1" placeholder="Nome da Clínica" />
+				</xpath>
+
+
 		    </field>
 		</record>
 
