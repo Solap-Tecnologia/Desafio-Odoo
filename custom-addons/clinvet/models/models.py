@@ -19,15 +19,6 @@ class Raca(models.Model):
 	especie_id = fields.Many2one('vetclin.especie', ondelete='cascade')
 	especie_name = fields.Char(related='especie_id.name')
 
-#class TipoDeAnimal(models.Model):
-#	_name = 'vetclin.tipodeanimal'
-#	_description = 'Tipo de Animal'
-#
-#	id = fields.Integer()
-#	name = fields.Char(string="Espécie")
-#	raca = fields.Char(string="Raça")
-	#animal_ids = fields.One2many('vetclin.animal', 'tipodeanimal_id', string="Animais")
-
 class Servico(models.Model):
 	_name = 'vetclin.servico'
 	_description = 'Serviços'
@@ -48,19 +39,10 @@ class Consulta(models.Model):
 	produtos_id = fields.Many2many('product.template')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
-<<<<<<< HEAD
 
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
-	#produtos_id = fields.Many2many('product.template')
+	produtos_id = fields.Many2many('product.template')
 
-=======
-	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")
-	start_date = fields.Datetime(string="Data e Horário de início")
-	duration = fields.Float(digits=(6, 2), help="Duração da consulta")
-	end_date = fields.Datetime(string="Término da Consulta")
-	name = fields.Text(string='Consultas')
-    
->>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 	@api.one
 	@api.depends('servicos_id', 'servicos_id.preco', 'produtos_id', 'produtos_id.list_price')
 	def calc_preco_total(self):
@@ -70,70 +52,21 @@ class Consulta(models.Model):
 		for produto in self.produtos_id:
 			precoatual += produto.list_price
 		self.preco_total = precoatual
-<<<<<<< HEAD
 
 	start_date = fields.Datetime()
 	duration = fields.Float(digits=(6, 2), help="Duração em dias")
 	end_date = fields.Datetime(string="Agendamento de Consultas")
 	name = fields.Text(string='Consultas')
     
-	'''@api.depends('start_date', 'duration')
-	def _get_end_date(self):
-		for r in self:
-			if not (r.start_date and r.duration):
-				r.end_date = r.start_date
-				continue
-
-			start = fields.Datetime.from_string(r.start_date)
-			duration = timedelta(days=r.duration)
-			r.end_date = start + duration
-
-	def _set_end_date(self):
-		for r in self:
-			if not (r.start_date and r.end_date):
-				continue
-
-			start_date = fields.Datetime.from_string(r.start_date)
-			end_date = fields.Datetime.from_string(r.end_date)
-			r.duration = (end_date - start_date).days''' 
-
-
-
-
-	'''clinica_id = fields.Many2one('res.company',ondelete='cascade', string="Clínica")'''	
-
-#class CalendarioDeConsulta(models.Model):
-#    _name = "vetclin.calendario" 
-#    _columns = {
-#        'name': fields.Char('Calendário',size=20,required=True),
-#        'date_start':fields.Datetime(string='Início Consulta'),
-#       'date_stop':fields.Datetime(string='Fim Consulta'),
-#    }
-    
-=======
->>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
-
 class Animal(models.Model):
 	_name = 'vetclin.animal'
 	_description = 'Animal'	
 
 	id = fields.Integer()
 	name = fields.Char(string="Nome do animal")
-	#tipodeanimal_id = fields.Many2one('vetclin.tipodeanimal', ondelete='cascade', string="Tipo de animal")
 	cliente_id = fields.Many2one('res.partner', ondelete='cascade', string="Dono")
-<<<<<<< HEAD
-	consulta_ids = fields.One2many('vetclin.consulta' , 'animal_id', string="Animal")
-<<<<<<< HEAD
-
-=======
->>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
-=======
 	especie_id = fields.Many2one('vetclin.especie', ondelete='cascade', string="Espécie")
 	raca_id = fields.Many2one('vetclin.raca', ondelete='cascade', string="Raça")	
-	#cliente_name = fields.Char(related='cliente_id.name') 
-	#especie_name = fields.Char(related='especie_id.name')
-	#raca_name = fields.Char(related='raca_id.name')
->>>>>>> NewModelagemAnimal
 
 class Produto(models.Model):
 	_inherit = 'product.template'
@@ -142,14 +75,7 @@ class Produto(models.Model):
 	name = fields.Char(string="Produto")
 	description  = fields.Text(string="Descrição")
 	list_price = fields.Float(string="Preço de Venda")
-<<<<<<< HEAD
-	#lst_price tbm 
 	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
-	#is_produto_novo = fields.Boolean(string="Novo Produto", readonly=True, default=False)
-#	,'id','id'
-=======
-	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
->>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 
 class Clinica(models.Model):
     _inherit =  'res.company'
@@ -212,22 +138,17 @@ class Partner(models.Model):
 	_inherit = 'res.partner'
 	_description = 'Custom Partners'
 
-	#Generico
 	numero_casa = fields.Char(string="Num. Casa")
-	#Dono
-	cpf = fields.Char(string="CPF do Cliente", default="45532325880")	
+	cpf = fields.Char(string="CPF do Cliente")	
 	is_dono = fields.Boolean(string="Dono", readonly=True, default=False)
-	#Veterinario
 	salario = fields.Float(digits=(7,2), string="Salario")
 	crmv = fields.Char(string="Registro Veterinario")
 	data_admissao = fields.Date(string="Data de admissao")
 	data_demissao = fields.Date(string="Data de demissao")
 	is_veterinario = fields.Boolean(string="Veterinario", readonly=True, default=False)
-	#ja existentes
 	email = fields.Char(string="Email")
 	phone = fields.Char(string="Telefone")	
 	mobile = fields.Char(string="Celular")
-	#relações
 	animal_ids = fields.One2many('vetclin.animal', 'cliente_id', string="Animais")
 	consulta_ids = fields.One2many('vetclin.consulta', 'veterinario_id', string="Veterinários")
 	
@@ -273,23 +194,6 @@ class Medicamento(models.Model):
 	_name = 'vetclin.medicamento'
 	_description = 'Medicamento'
 
-<<<<<<< HEAD
-''' Extender o model product.template '''
-#class Produto(models.Model):
-#	_name = 'vetclin.produto'
-#	_description = 'Produto'
-#
-#	id = fields.Integer()
-#	name = fields.Char(string="Nome")
-#	descricao = fields.Text(string="Descrição do Produto")
-
-''' Relacionar com a classe Produto '''
-class Medicamento(models.Model):
-	_name = 'vetclin.medicamento'
-	_description = 'Medicamento'
-
-=======
->>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
 	id = fields.Integer()
 	name = fields.Char(string="Medicamento")
 	comp_quimica = fields.Text(string="Composição Química")
