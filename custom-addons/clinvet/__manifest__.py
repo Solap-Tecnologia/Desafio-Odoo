@@ -31,7 +31,7 @@
         'views/consulta.xml',
         'views/especie.xml',
         'views/raca.xml',
-        #'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
     #'demo': [
