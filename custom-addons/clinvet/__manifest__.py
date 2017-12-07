@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "clinvet",
+    'name': "Clínica Veterinária",
     'summary': """
-        Clínica Veterinária
+        Módulo para gestão e controle de uma clínica veterinária.
     """,
     'description': """
-        Módulo destinado para gestão e controle de uma clínica veterinária.
+        Esse módulo foi um desafio proposto pela equipe da BradooTech, que serviu como 
+        um pontapé inicial para o Grupo Solap imergir no mundo do ERP OpenSource Odoo.
     """,
     'author': "Grupo SOLAP",
     'website': "https://www.solap.com",
@@ -33,8 +34,8 @@
         #'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    #'demo': [
+    #    'demo/demo.xml',
+    #],
     'application':True,
 }

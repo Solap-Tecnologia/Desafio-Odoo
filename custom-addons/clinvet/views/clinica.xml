@@ -75,16 +75,20 @@
 				<xpath expr='//field[@name="company_registry"]' position='replace'>
 					<field string= "CNPJ da Empresa" name="company_registry" default_focus="1" placeholder="CNPJ" />
 				</xpath>
-
-				<xpath expr='//field[@name="partner_id"]' position='replace'>
+				<xpath expr='//field[@name="partner_id"]' position='attributes'>
+					<attribute name='invisible'>1</attribute>
+				</xpath>
+				<!--<xpath expr='//field[@name="partner_id"]' position='replace'>
 					<field string= "Nome da Clínica" name="partner_id" default_focus="1" placeholder="Nome da Clínica" />
+				</xpath>-->
+				<xpath expr='//page' position='attributes'>
+					<attribute name='string'>Informações Gerais</attribute>
 				</xpath>
 		    </field>
 		</record>
 
          <!-- Tree view -->
         <record id="view_company_tree" model="ir.ui.view">
-            <!--field name="name">res.company.tree</field-->
             <field name="name">clinica.tree</field>
             <field name="model">res.company</field>
             <field name="arch" type="xml">
@@ -94,8 +98,6 @@
                 </tree>
             </field>
         </record>
-
-<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
 		<record model='ir.ui.view' id='clinica_search_view'>
 			<field name='name'>clinica.search</field>
@@ -115,10 +117,7 @@
 			</field>
 		</record>
 
-<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-
-
-<record model='ir.actions.act_window' id='janela_cadastro_clinica'>
+		<record model='ir.actions.act_window' id='janela_cadastro_clinica'>
 			<field name='name'>Clínica</field>
 			<field name='res_model'>res.company</field>
 			<field name='view_type'>form</field>

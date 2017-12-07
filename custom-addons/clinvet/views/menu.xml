@@ -13,23 +13,7 @@
 		<menuitem id='menu_esquerdo_relatorios' 
 			name='Relatórios' 
 			parent='menu_superior_vetclin' />
-		<menuitem id='menu_esquerdo_cadastro_veterinarios' 
-			name='Cadastro Veterinários' 
-			parent='menu_superior_vetclin'/>
-
-		<menuitem id='submenu_procedimento' 
-			name='Cadastro de Procedimentos' 
-			parent='menu_superior_vetclin'/>
-
-                <menuitem id='submenu_medicamento' 
-			name='Cadastro de Medicamentos' 
-			parent='menu_superior_vetclin'/>
-
-                <menuitem id='submenu_produto' 
-			name='Cadastro de Produtos' 
-			parent='menu_superior_vetclin'/>
-
-                <menuitem id='submenu_consulta' 
+		<menuitem id='submenu_consulta' 
 			name='Agendamento de Consultas' 
 			parent='menu_superior_vetclin'/>
 

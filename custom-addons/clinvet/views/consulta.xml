@@ -56,7 +56,6 @@
 				</calendar>
 			</field>
 		</record>
-
 	
 		<record model='ir.actions.act_window' id='janela_cadastro_consultas'>
 			<field name='name'>Consultas</field>
@@ -71,7 +70,7 @@
 		<menuitem 
 			id='submenu_consulta'
 			name='Consultas'
-			parent='menu_esquerdo_cadastros'
+			parent='menu_esquerdo_consultas'
 			action='janela_cadastro_consultas' />
 	</data>
 </odoo>
