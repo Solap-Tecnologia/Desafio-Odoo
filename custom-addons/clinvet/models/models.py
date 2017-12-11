@@ -104,7 +104,7 @@ class Produto(models.Model):
 	list_price = fields.Float(string="Preço de Venda")
 	#lst_price tbm 
 	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
-	#is_produto_novo = fields.Boolean(string="Novo Produto", readonly=True, default=False)
+	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 #	,'id','id'
 
 class Clinica(models.Model):
