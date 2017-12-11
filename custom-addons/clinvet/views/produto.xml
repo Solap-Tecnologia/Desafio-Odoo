@@ -53,6 +53,7 @@
 					<field name="medic_ids" options="{'no_create': True}" widget="many2many_tags" placeholder="Medicamentos do Produto"/>
 				</xpath>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<!--<xpath expr="//field[@name='categ_id']" position="attributes">
 					<attribute name="invisible">0</attribute>
 				</xpath>-->
@@ -64,6 +65,8 @@
 					<field name="is_prod" default_focus="1" value="True" invisible="True"/>
 				</xpath>
 >>>>>>> leonardo
+=======
+>>>>>>> f7f6a25f7c0bfc2996b62104427d9834e55593da
 				<xpath expr="//field[@name='name']" position="replace">
 					<field name="name" default_focus="1" placeholder="Nome do Produto"/>
 				</xpath>
@@ -109,6 +112,7 @@
 				</xpath>
 				<xpath expr="//field[@name='name']" position="after">
 					<field name="description" default_focus="1" placeholder="Descrição"/>
+<<<<<<< HEAD
 				</xpath>
 				<xpath expr="//field[@name='categ_id']" position="attributes">
 					<attribute name="invisible">0</attribute>
@@ -141,6 +145,12 @@
 			</field>
 		</record>-->
 
+=======
+				</xpath>		
+			</field>
+		</record>
+		
+>>>>>>> f7f6a25f7c0bfc2996b62104427d9834e55593da
 		<!-- Registro que tem ação de abrir o form -->
 		<record model='ir.actions.act_window' id='janela_cadastro_produto'>
 			<field name='name'>Produtos</field>

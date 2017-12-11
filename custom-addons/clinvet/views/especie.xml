@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		<record model='ir.ui.view' id='especie_form_view'>
+			<field name='name'>especie.form</field>
+			<field name='model'>vetclin.especie</field>
+			<field name='arch' type='xml'>
+				<form string='Especies'>
+					<sheet>
+						<group>
+							<field name='id' invisible='True' />
+							<field name='name'/>
+						</group>
+					</sheet>
+				</form>				
+			</field>
+		</record>
+
+		<record model='ir.ui.view' id='especie_tree_view'>
+			<field name='name'>especie.tree</field>
+			<field name='model'>vetclin.especie</field>
+			<field name='arch' type='xml'>
+				<tree string='Lista de animais'>
+					<field name='id'/>
+					<field name='name'/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model='ir.actions.act_window' id='janela_cadastro_especies'>
+			<field name='name'>Especies</field>
+			<field name='res_model'>vetclin.especie</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Cadastre as espécies</p>
+			</field>
+		</record>
+
+		<menuitem 
+			id='submenu_especie'
+			name='Especies'
+			parent='menu_esquerdo_cadastros'
+			action='janela_cadastro_especies' />
+	</data>
+</odoo>
