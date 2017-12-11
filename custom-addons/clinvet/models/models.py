@@ -121,7 +121,7 @@ class Produto(models.Model):
 <<<<<<< HEAD
 	#lst_price tbm 
 	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
-	#is_produto_novo = fields.Boolean(string="Novo Produto", readonly=True, default=False)
+	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 #	,'id','id'
 =======
 	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
