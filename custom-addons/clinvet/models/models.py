@@ -19,14 +19,14 @@ class Raca(models.Model):
 	especie_id = fields.Many2one('vetclin.especie', ondelete='cascade')
 	especie_name = fields.Char(related='especie_id.name')
 
-class Servico(models.Model):
-	_name = 'vetclin.servico'
-	_description = 'Serviços'
+#class Servico(models.Model):
+#	_name = 'vetclin.servico'
+#	_description = 'Serviços'
 
-	id = fields.Integer()
-	name = fields.Char(string="Serviço")
-	descricao = fields.Text(string="Descrição do Serviço")
-	preco = fields.Float(string="Preço", digits=(7,2))
+#	id = fields.Integer()
+#	name = fields.Char(string="Serviço")
+#	descricao = fields.Text(string="Descrição do Serviço")
+#	preco = fields.Float(string="Preço", digits=(7,2))
 
 class Consulta(models.Model):
 	_name = 'vetclin.consulta'
@@ -35,7 +35,7 @@ class Consulta(models.Model):
 	id = fields.Integer()
 	observacao = fields.Text(string="Observações")
 	preco_total = fields.Float(string="Preço Total", digits=(7,2), compute='calc_preco_total', readonly=True)
-	servicos_id = fields.Many2many('vetclin.servico')
+	servicos_id = fields.Many2many('product.template')
 	produtos_id = fields.Many2many('product.template')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
@@ -44,11 +44,14 @@ class Consulta(models.Model):
 	produtos_id = fields.Many2many('product.template')
 
 	@api.one
-	@api.depends('servicos_id', 'servicos_id.preco', 'produtos_id', 'produtos_id.list_price')
+	#@api.depends('servicos_id', 'servicos_id.preco', 'produtos_id', 'produtos_id.list_price')
+	@api.depends('servicos_id', 'produtos_id', 'produtos_id.list_price')
 	def calc_preco_total(self):
 		precoatual = 0
-		for servico in self.servicos_id:
-			precoatual += servico.preco
+	#	for servico in self.servicos_id:
+			#precoatual += servico.preco
+		for produto in self.servicos_id:
+			precoatual += produto.list_price
 		for produto in self.produtos_id:
 			precoatual += produto.list_price
 		self.preco_total = precoatual
@@ -76,14 +79,9 @@ class Produto(models.Model):
 	description  = fields.Text(string="Descrição")
 	list_price = fields.Float(string="Preço de Venda")
 	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
-<<<<<<< HEAD
 	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
-#	,'id','id'
-=======
-	medic_ids = fields.Many2many('vetclin.medicamento','vet_prod_med_rel',string="Medicamentos")
->>>>>>> 040d7fa639283725294d3933c0e8702a6046a7fd
-=======
->>>>>>> f7f6a25f7c0bfc2996b62104427d9834e55593da
+	is_serv = fields.Boolean(string="Novo Servico", readonly=True, default=False)
+	#type = fields.Selection( default='service')
 
 class Clinica(models.Model):
     _inherit =  'res.company'

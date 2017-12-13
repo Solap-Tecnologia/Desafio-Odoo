@@ -11,8 +11,8 @@
 					<sheet>
 						<group>
 							<field name='id' invisible='True' />
-            				<field name="servicos_id" widget="many2many_tags" options="{'no_create_edit': True}"/>
-            				<field name="produtos_id" widget="many2many_tags" options="{'no_create_edit': True}" />
+            				<field name="servicos_id" widget="many2many_tags" options="{'no_create_edit': False}" domain="[('is_serv','=',True)]"/>
+            				<field name="produtos_id" widget="many2many_tags" options="{'no_create_edit': False}" domain="[('is_prod','=',True)]" />
  							<field name='animal_id' widget='selection'/>
 							<field name='veterinario_id' widget='selection' domain="[('is_veterinario', '=', True)]"/>
 							<field name='consultorio_id' widget='many2one' options="{'no_create_edit': False}"/>

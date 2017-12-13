@@ -17,13 +17,19 @@
     'version': '1.1',
     # any module necessary for this one to work correctly
     'depends': ['base',
-                'product'],
+                'crm',
+                'stock',
+                'sale_management',
+                'mail',
+                'calendar',
+                'account_invoicing',
+                'contacts',],
     # always loaded
     'data': [
         'views/menu.xml',
         'views/animal.xml',
         'views/cliente_veterinario.xml',
-        'views/servico.xml',
+        #'views/servico.xml',
         'views/produto.xml',
         'views/medicamento.xml',
         'views/clinica.xml',
