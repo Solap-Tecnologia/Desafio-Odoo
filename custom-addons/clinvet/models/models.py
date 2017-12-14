@@ -19,15 +19,6 @@ class Raca(models.Model):
 	especie_id = fields.Many2one('vetclin.especie', ondelete='cascade')
 	especie_name = fields.Char(related='especie_id.name')
 
-#class Servico(models.Model):
-#	_name = 'vetclin.servico'
-#	_description = 'Serviços'
-
-#	id = fields.Integer()
-#	name = fields.Char(string="Serviço")
-#	descricao = fields.Text(string="Descrição do Serviço")
-#	preco = fields.Float(string="Preço", digits=(7,2))
-
 class Consulta(models.Model):
 	_name = 'vetclin.consulta'
 	_description = 'Consulta'
@@ -39,19 +30,15 @@ class Consulta(models.Model):
 	produtos_id = fields.Many2many('product.template')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
-
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
-	produtos_id = fields.Many2many('product.template')
 
 	@api.one
 	#@api.depends('servicos_id', 'servicos_id.preco', 'produtos_id', 'produtos_id.list_price')
-	@api.depends('servicos_id', 'produtos_id', 'produtos_id.list_price')
+	@api.depends('servicos_id', 'servicos_id.list_price','produtos_id', 'produtos_id.list_price')
 	def calc_preco_total(self):
 		precoatual = 0
-	#	for servico in self.servicos_id:
-			#precoatual += servico.preco
-		for produto in self.servicos_id:
-			precoatual += produto.list_price
+		for servico in self.servicos_id:
+			precoatual += servico.list_price
 		for produto in self.produtos_id:
 			precoatual += produto.list_price
 		self.preco_total = precoatual
@@ -75,13 +62,9 @@ class Produto(models.Model):
 	_inherit = 'product.template'
 	_description = 'Custom Products'
 
-	name = fields.Char(string="Produto")
-	description  = fields.Text(string="Descrição")
-	list_price = fields.Float(string="Preço de Venda")
 	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
 	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 	is_serv = fields.Boolean(string="Novo Servico", readonly=True, default=False)
-	#type = fields.Selection( default='service')
 
 class Clinica(models.Model):
     _inherit =  'res.company'

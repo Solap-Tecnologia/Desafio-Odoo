@@ -3,58 +3,18 @@
 	<data>
 		
 		<!-- Form view -->
-		<record model="ir.ui.view" id="produto_form_view">
-			<field name="name">product.template.produto.form</field>
+		<record model="ir.ui.view" id="prod_serv_form_view">
+			<field name="name">product.template.prod_serv.form</field>
 			<field name="model">product.template</field>
 			<field name="inherit_id" ref='product.product_template_form_view' />
-			<field eval="20" name="priority"/>
 			<field name="arch" type="xml">
-				<!--<xpath expr='//field[@name="parent_id"]' position='attributes'>
-					<attribute name='invisible'>1</attribute>
-				</xpath>
-				<xpath expr="//button[@name='toggle_active']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//page[@name='sales']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//page[@name='inventory']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//page[@name='notes']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//field[@name='sale_ok']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//label[@for='sale_ok']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//field[@name='purchase_ok']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//label[@for='purchase_ok']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-					<attribute name="readonly">1</attribute>
-				<xpath expr="//field[@name='type']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>-->
-				<xpath expr="//label[@for='name']" position="replace">
-					<label string='Produto'/>
-				</xpath>
 
 				<xpath expr="//div[@name='standard_price_uom']" position="after">
-
-					<field name="description" placeholder="Descrição do Produto"/>
+					<field name="description"/>
 				</xpath>
 			
 				<xpath expr="//field[@name='categ_id']" position="after">
-					<field name="medic_ids" options="{'no_create': True}" widget="many2many_tags" placeholder="Medicamentos do Produto"/>
-				</xpath>
-
-				<xpath expr='//field[@name="type"]' position='replace'>
-					<field name='type' placeholder='Tipo' options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('is_dono', '=', 'True')]}"/>
+					<field name="medic_ids" widget="many2many_tags" placeholder="Medicamentos" attrs="{'invisible':[('is_serv','=',True)]}"/>
 				</xpath>
 
 				<xpath expr="//field[@name='categ_id']" position="after">
@@ -64,51 +24,18 @@
 				<xpath expr="//field[@name='categ_id']" position="after">
 					<field name="is_serv" invisible="True"/>
 				</xpath>
-
-				<xpath expr="//field[@name='name']" position="replace">
-					<field name="name" default_focus="1" placeholder="Nome do Produto"/>
-				</xpath>
 			</field>
-		</record>
-
-		<record model="ir.ui.view" id="produto_tree_view">
-			<field name="inherit_id" ref="product.product_template_tree_view" />
-			<field name="name">product.template.produto.form</field>
-			<field name="model">product.template</field>
-			
-			<field name="arch" type="xml">
-	
-				<xpath expr="//field[@name='sequence']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-				<xpath expr="//field[@name='default_code']" position="attributes">
-					<attribute name="invisible">1</attribute>
-				</xpath>
-				<!--<xpath expr="//field[@name='standard_price']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-				<xpath expr="//field[@name='uom_id']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>-->
-				<xpath expr="//field[@name='standard_price']" position="after">
-					<field name="description" default_focus="1" placeholder="Descrição"/>
-
-				</xpath>
-				<xpath expr="//field[@name='categ_id']" position="attributes">
-					<attribute name="invisible">0</attribute>
-				</xpath>
-			</field>
-		</record>			
+		</record>	
 
 		<!-- Search view -->
 		<!--<record model='ir.ui.view' id='produto_search_view'>
-			<field name='name'>produto.search</field>
+			<field name='name'>product.template.search</field>
 			<field name='model'>vetclin.produto</field>
 			<field name='arch' type='xml'>
 				<search>
-					<field name="id" />
-					<field name="nome_produto" />
-					<field name="desc_produto" />
+					<field name="name" />
+					<field name="categ_id" />
+					<field name="list_price" />
 				</search>			
 			</field>
 		</record>-->
@@ -117,39 +44,42 @@
 		<record model='ir.actions.act_window' id='janela_cadastro_produto'>
 			<field name='name'>Produtos</field>
 			<field name='res_model'>product.template</field>
-			<!--<field name="type">ir.actions.act_window</field>-->
+			<field name="type">ir.actions.act_window</field>
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
-			<field name="view_id" ref="base.view_partner_tree"/>
-			<field name='context'>{'default_is_prod':'True'}</field>
+			<field name="view_id" ref="product.product_template_tree_view"/>
+			<field name='context'>{'default_is_prod':'True','default_type':'consu'}</field>
 			<field name='domain'>[('is_prod','=',True)]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os produtos</p>
 			</field>
 			
 		</record>
-		<!-- Menu que abrirá o form ou o tree view-->
+
+		<!-- Registro que tem ação de abrir o form -->
 		<record model='ir.actions.act_window' id='janela_cadastro_servico'>
 			<field name='name'>Servicos</field>
 			<field name='res_model'>product.template</field>
-			<!--<field name="type">ir.actions.act_window</field>-->
+			<field name="type">ir.actions.act_window</field>
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
-			<field name="view_id" ref="base.view_partner_tree"/>
-			<field name='context'>{'default_is_serv':'True'}</field>
+			<field name="view_id" ref="product.product_template_tree_view"/>
+			<field name='context'>{'default_is_serv':'True','default_type':'service'}</field>
 			<field name='domain'>[('is_serv','=',True)]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os servicos</p>
 			</field>
 		</record>
+
 		<!-- Menu que abrirá o form ou o tree view-->
 		<menuitem id="submenu_produto"
 			name="Produtos"
 			parent="menu_esquerdo_cadastros"
 			action="janela_cadastro_produto"/>
-		<!--Menu que abrirá o form ou o tree view-->
+
+		<!--Menu que abrirá o form ou o tree view -->
 		<menuitem id="submenu_servico"
-			name="Serviço"
+			name="Serviços"
 			parent="menu_esquerdo_cadastros"
 			action="janela_cadastro_servico"/>
 	</data>
