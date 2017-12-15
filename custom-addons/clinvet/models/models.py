@@ -30,7 +30,7 @@ class Consulta(models.Model):
 	produtos_id = fields.Many2many('product.template')
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
-	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio")		
+	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio", required=True)		
 
 	@api.one
 	#@api.depends('servicos_id', 'servicos_id.preco', 'produtos_id', 'produtos_id.list_price')

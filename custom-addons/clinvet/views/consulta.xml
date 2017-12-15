@@ -11,11 +11,11 @@
 					<sheet>
 						<group>
 							<field name='id' invisible='True' />
-            				<field name="servicos_id" widget="many2many_tags" domain="[('is_serv','=',True)]" context="{'default_type':'service'}"/>
-            				<field name="produtos_id" widget="many2many_tags" domain="[('is_prod','=',True)]" context="{'default_type':'consu'}"/>
- 							<field name='animal_id' widget='selection'/>
-							<field name='veterinario_id' widget='selection' domain="[('is_veterinario', '=', True)]"/>
-							<field name='consultorio_id' widget='many2one' options="{'no_create_edit': False}"/>
+            				<field name="servicos_id" widget="many2many_tags" domain="[('is_serv','=',True)]" context="{'default_type':'service','default_is_serv':True}"/>
+            				<field name="produtos_id" widget="many2many_tags" domain="[('is_prod','=',True)]" context="{'default_type':'consu','default_is_prod':True}"/>
+ 							<field name='animal_id' widget='many2one'/>
+							<field name='veterinario_id' widget='many2one' domain="[('is_veterinario', '=', True)]"/>
+							<field name='consultorio_id' widget='many2one'/>
 							<field name='observacao' />
 							<field name='start_date'/>
 							<field name='end_date'/>
