@@ -66,6 +66,7 @@ class Produto(models.Model):
 	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 	is_serv = fields.Boolean(string="Novo Servico", readonly=True, default=False)
 
+'''
 class Clinica(models.Model):
     _inherit =  'res.company'
     _description = 'Clinica'
@@ -112,6 +113,7 @@ class Clinica(models.Model):
         else:
             digito = 11 - (soma % 11)		
         return digito
+'''
 
 class Consultorio(models.Model):
     _name = 'vetclin.consultorio'
@@ -121,7 +123,7 @@ class Consultorio(models.Model):
     name = fields.Text(string="Nome")
     descricao = fields.Text(string="Descrição")
     ramal = fields.Char(string="Ramal")
-    clinica_id = fields.Many2one('res.company', ondelete='cascade')
+    #clinica_id = fields.Many2one('res.company', ondelete='cascade')
 
 class Partner(models.Model):
 	_inherit = 'res.partner'

@@ -13,7 +13,7 @@
 							<field name='name' placeholder='Nome'/>
                             <field name='ramal' placeholder='Ramal'/>
 							<field name='descricao' placeholder='Descrição' />
-							<field name='clinica_id' widget='selection'/>
+							<!--<field name='clinica_id' widget='selection'/>-->
 						</group>
 					</sheet>
 				</form>
@@ -30,7 +30,7 @@
                     <field name='name' />
 					<field name='ramal' />
 					<field name='descricao' />
-					<field name='clinica_id' />                   
+					<!--<field name='clinica_id' /> -->                  
 				</tree>			
 			</field>
 		</record>
@@ -45,7 +45,7 @@
                     <field name='name' />
 					<field name='ramal' />
 					<field name='descricao' />
-                    <field name='clinica_id'/>
+                    <!--<field name='clinica_id'/>-->
 				</search>			
 			</field>
 		</record>
@@ -61,7 +61,6 @@
 			</field>
 		</record>
 
-		<!-- Menu que abrirá o form ou o tree view-->
 		<menuitem id='submenu_consultorio'
 			name='Consultórios'
 			parent='menu_esquerdo_cadastros'

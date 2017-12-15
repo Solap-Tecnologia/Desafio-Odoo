@@ -2,7 +2,7 @@
 <odoo>
 	<data>
 		<menuitem id='menu_superior_vetclin' 
-			name='VetClin' />
+			name='Veterinária' />
 		
 		<menuitem id='menu_esquerdo_cadastros' 
 			name='Cadastros' 
