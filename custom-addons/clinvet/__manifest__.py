@@ -32,7 +32,7 @@
         #'views/servico.xml',
         'views/produto.xml',
         'views/medicamento.xml',
-        'views/clinica.xml',
+        #'views/clinica.xml',
         'views/consultorio.xml',
         'views/consulta.xml',
         'views/especie.xml',

@@ -1,5 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_vetclin_servico,access_vetclin_servico,model_vetclin_servico,,1,0,0,0
 access_vetclin_consulta,access_vetclin_consulta,model_vetclin_consulta,,1,0,0,0
 access_vetclin_especie,access_vetclin_especie,model_vetclin_especie,,1,0,0,0
 access_vetclin_raca,access_vetclin_raca,model_vetclin_raca,,1,0,0,0
