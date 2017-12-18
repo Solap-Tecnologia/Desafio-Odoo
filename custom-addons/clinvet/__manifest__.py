@@ -29,7 +29,6 @@
         'views/menu.xml',
         'views/animal.xml',
         'views/cliente_veterinario.xml',
-        #'views/servico.xml',
         'views/produto.xml',
         'views/comp_quimica.xml',
         'views/clinica.xml',
