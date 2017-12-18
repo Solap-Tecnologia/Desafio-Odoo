@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>		
+		<!-- Form view -->
+		<record model='ir.ui.view' id='cmp_quimica_form_view'>
+			<field name='name'>cmp_quimica.form</field>
+			<field name='model'>vetclin.cmp_quimica</field>
+			<field name='arch' type='xml'>
+				<form string='Formulario Cadastro de cmp_quimicas'>
+					<sheet>
+						<group>
+							<field name='name' placeholder='Nome do Composto Químico'/>
+							<!--<field name='uom_id' placeholder='Composição Química' />-->
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!-- Tree view -->
+		<record model='ir.ui.view' id='cmp_quimica_tree_view'>
+			<field name='name'>cmp_quimica.tree</field>
+			<field name='model'>vetclin.cmp_quimica</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name='id' />
+					<field name='name' />
+					<!--<field name='uom_id' />-->
+				</tree>			
+			</field>
+		</record>
+
+		<!-- Search view -->
+		<record model='ir.ui.view' id='cmp_quimica_search_view'>
+			<field name='name'>cmp_quimica.search</field>
+			<field name='model'>vetclin.cmp_quimica</field>
+			<field name='arch' type='xml'>
+				<search>
+					<field name='id' />
+					<field name='name' />
+					<!--<field name='uom_id' />-->
+				</search>			
+			</field>
+		</record>
+
+		<!-- Registro que tem ação de abrir o form -->
+		<record model='ir.actions.act_window' id='janela_cadastro_cmp_quimica'>
+			<field name='name'>Composição Quimica</field>
+			<field name='res_model'>vetclin.cmp_quimica</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Cadastrar as Composições Quimicas</p>
+			</field>
+		</record>
+		<!-- Menu que abrirá o form ou o tree view-->
+		<menuitem id='submenu_cmp_quimica'
+			name='Composição Quimica'
+			parent='menu_esquerdo_cadastros'
+			action='janela_cadastro_cmp_quimica'/>
+	</data>
+</odoo>

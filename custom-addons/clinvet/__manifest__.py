@@ -22,7 +22,7 @@
                 'sale_management',
                 'mail',
                 'calendar',
-                'account_invoicing',
+                #'account_invoicing',
                 'contacts',],
     # always loaded
     'data': [
@@ -31,7 +31,7 @@
         'views/cliente_veterinario.xml',
         #'views/servico.xml',
         'views/produto.xml',
-        'views/medicamento.xml',
+        'views/comp_quimica.xml',
         'views/clinica.xml',
         'views/consultorio.xml',
         'views/consulta.xml',

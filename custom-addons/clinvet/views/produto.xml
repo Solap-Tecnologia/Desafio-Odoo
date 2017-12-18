@@ -8,13 +8,43 @@
 			<field name="model">product.template</field>
 			<field name="inherit_id" ref='product.product_template_form_view' />
 			<field name="arch" type="xml">
+		
+				<!--<xpath expr='//field[@name="name"]' position='replace'>
+					<field name="name" string="Nome do Medicamento" attrs="{'invisible':[('is_med','=',False)]}"/>
+				</xpath>
+				<xpath expr='//field[@name="name"]' position='replace'>
+					<field name="name" string="Nome do Produto" attrs="{'invisible':[('is_prod','=',False)]}"/>
+				</xpath>
+				
+				<xpath expr='//field[@name="name"]' position='replace'>
+					<field name="name" string="Nome do Serviço" attrs="{'invisible':[('is_serv','=',False)]}"/>
+				</xpath>
 
+				<xpath expr='//field[@name="name"]' position='attributes'>
+					<attribute name='placeholder'>Produto/Medicamento/Serviço</attribute>
+					<attribute name='string'>Nome do Produto/Medicamento/Serviço</attribute>
+				</xpath>-->
+
+				
 				<xpath expr="//div[@name='standard_price_uom']" position="after">
 					<field name="description"/>
 				</xpath>
 			
-				<xpath expr="//field[@name='categ_id']" position="after">
+				<!--<xpath expr="//field[@name='categ_id']" position="after">
 					<field name="medic_ids" widget="many2many_tags" placeholder="Medicamentos" attrs="{'invisible':[('is_serv','=',True)]}"/>
+				</xpath>-->
+
+				<xpath expr="//page[@name='general_information']" position="after">
+					<page name="comp_quimica_page" string="Composição Química" attrs="{'invisible':[('is_med','=',False)]}">
+						<!--<field name="medic_ids" widget="many2many_tags" placeholder="Medicamentos"/>-->
+						<field name="cmp_ids" widget="one2many_list">
+							<tree editable="bottom">
+								<field name="cmp_id"/>
+								<field name="value"/>
+								<field name="uom_id"/>
+							</tree>
+						</field>
+					</page>
 				</xpath>
 
 				<xpath expr="//field[@name='categ_id']" position="after">
@@ -23,6 +53,10 @@
 
 				<xpath expr="//field[@name='categ_id']" position="after">
 					<field name="is_serv" invisible="True"/>
+				</xpath>
+
+				<xpath expr="//field[@name='categ_id']" position="after">
+					<field name="is_med" invisible="True"/>
 				</xpath>
 			</field>
 		</record>	
@@ -48,8 +82,8 @@
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
-			<field name='context'>{'default_is_prod':'True','default_type':'consu'}</field>
-			<field name='domain'>[('is_prod','=',True)]</field>
+			<field name='context'>{'default_is_prod':'True','default_type':'product'}</field>
+			<field name='domain'>[('is_prod','=',True),('type','=','product')]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os produtos</p>
 			</field>
@@ -65,9 +99,23 @@
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
 			<field name='context'>{'default_is_serv':'True','default_type':'service'}</field>
-			<field name='domain'>[('is_serv','=',True)]</field>
+			<field name='domain'>[('is_serv','=',True),('type','=','service')]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os servicos</p>
+			</field>
+		</record>
+
+		<record model='ir.actions.act_window' id='janela_cadastro_medicamento'>
+			<field name='name'>Medicamento</field>
+			<field name='res_model'>product.template</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name="view_id" ref="product.product_template_tree_view"/>
+			<field name='context'>{'default_is_med':'True','default_type':'consu'}</field>
+			<field name='domain'>[('is_med','=',True),('type','=','consu')]</field>
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Cadastre os Medicamentos</p>
 			</field>
 		</record>
 
@@ -82,5 +130,11 @@
 			name="Serviços"
 			parent="menu_esquerdo_cadastros"
 			action="janela_cadastro_servico"/>
+
+		<!--Menu que abrirá o form ou o tree view -->
+		<menuitem id="submenu_medicamento"
+			name="Medicamentos"
+			parent="menu_esquerdo_cadastros"
+			action="janela_cadastro_medicamento"/>
 	</data>
 </odoo>

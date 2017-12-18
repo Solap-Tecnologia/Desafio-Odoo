@@ -62,10 +62,13 @@ class Produto(models.Model):
 	_inherit = 'product.template'
 	_description = 'Custom Products'
 
-	medic_ids = fields.Many2many('vetclin.medicamento', 'prod_medic_relation',string="Medicamentos")
+	name = fields.Char(string="Nome do Produto/Medicamento/Serviço")
+#	medic_ids = fields.Many2many('vetclin.cmp_quimica', 'medic_cmp_quim_relation',string="Componente Quimico")
+#	med_uom = fields.Float(digits=(5,2),string="Quantidade")
 	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 	is_serv = fields.Boolean(string="Novo Servico", readonly=True, default=False)
-
+	is_med = fields.Boolean(string="Novo Medicamento", readonly=True, default=False)
+	cmp_ids = fields.One2many('product.template.cmp_quimica','med_id',string='Composição')
 class Clinica(models.Model):
     _inherit =  'res.company'
     _description = 'Clinica'
@@ -179,11 +182,20 @@ class Partner(models.Model):
 			digito = 11 - (soma % 11)		
 		return digito
 
-class Medicamento(models.Model):
-	_name = 'vetclin.medicamento'
-	_description = 'Medicamento'
+class Cmp_Quimica(models.Model):
+	_name = 'vetclin.cmp_quimica'
+	_description = 'Composto Quimicos'
 
 	id = fields.Integer()
-	name = fields.Char(string="Medicamento")
-	comp_quimica = fields.Text(string="Composição Química")
-	consulta_id = fields.Many2one('vetclin.consulta', ondelete='cascade', string="Medicamento")
+	name = fields.Char(string="Nome do Composto Quimico")
+
+#medicameto_id = fields.Many2one('product.template', ondelete='cascade', string="Comp. Quimica")
+
+class Medic_comp(models.Model):
+	_name = 'product.template.cmp_quimica'
+	_description = "Relação de composição e medicamento"
+
+	cmp_id = fields.Many2one('vetclin.cmp_quimica',string='Componentes Químicos')
+	med_id = fields.Many2one('product.template')
+	value = fields.Float(digits=(7,2),string='Quantidade do Componente')
+	uom_id = fields.Many2one('product.uom',string="Unidade de Medida")
