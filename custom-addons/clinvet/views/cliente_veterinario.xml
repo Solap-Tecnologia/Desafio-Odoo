@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
 	<data>
-		<record id="vetclin_res_partner_view2" model="ir.ui.view">
+		<!--<record id="vetclin_res_partner_view2" model="ir.ui.view">
 			<field name="name">res.partner.form.vetclin2</field>
 			<field name="model">res.partner</field>
 			<field name="inherit_id" ref="base.view_partner_form"/>
@@ -55,12 +55,10 @@
 					<field name='cpf' attrs="{'invisible':[('is_dono','=',False)]}"/>
 				</xpath>
 
-				<!--name_dono-->
 				<xpath expr='//field[@name="name"]' position='before'>
 					<field name="is_dono" invisible='True'/>
 				</xpath>
 
-				<!---->
 				<xpath expr='//field[@name="website"]' position='attributes'>
 					<attribute name='invisible'>1</attribute>
 				</xpath>
@@ -90,15 +88,16 @@
 				</xpath>
 
 			</field>
-		</record>
+		</record>-->
 
 		<record id='janela_cadastro_veterinarios' model='ir.actions.act_window'>
 			<field name='name'>Veterinarios</field>
 			<field name='res_model'>res.partner</field>
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
-			<field name="view_id" ref="base.view_partner_tree"/>
+			<!--<field name="view_id" ref="base.view_partner_tree"/>-->
 			<field name='context'>{'default_is_veterinario':True}</field>
+			<field name='domain'>[('is_veterinario', '=', True)]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>
 					Cadastre os Veterinarios.
@@ -111,8 +110,9 @@
 			<field name='res_model'>res.partner</field>
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
-			<field name="view_id" ref="base.view_partner_tree"/>
+			<!--<field name="view_id" ref="base.view_partner_tree"/>-->
 			<field name='context'>{'default_is_dono':True}</field>
+			<field name='domain'>[('is_dono', '=', True)]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>
 					Cadastre os Clientes.
