@@ -31,7 +31,7 @@
         'views/cliente_veterinario.xml',
         'views/produto.xml',
         'views/comp_quimica.xml',
-        'views/clinica.xml',
+        #'views/clinica.xml',
         'views/consultorio.xml',
         'views/consulta.xml',
         'views/especie.xml',

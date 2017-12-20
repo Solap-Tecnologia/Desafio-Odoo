@@ -25,28 +25,48 @@ class Consulta(models.Model):
 
 	id = fields.Integer()
 	observacao = fields.Text(string="Observações")
-	preco_total = fields.Float(string="Preço Total", digits=(7,2), compute='calc_preco_total', readonly=True)
-	servicos_id = fields.Many2many('product.template')
-	produtos_id = fields.Many2many('product.template')
+	
+	
+	
 	animal_id = fields.Many2one('vetclin.animal', ondelete='cascade', string="Animal")		
 	veterinario_id = fields.Many2one('res.partner', ondelete='cascade', string="Veterinário")
 	consultorio_id = fields.Many2one('vetclin.consultorio', ondelete='cascade', string="Consultorio", required=True)		
-
-	@api.one
-	#@api.depends('servicos_id', 'servicos_id.preco', 'produtos_id', 'produtos_id.list_price')
-	@api.depends('servicos_id', 'servicos_id.list_price','produtos_id', 'produtos_id.list_price')
-	def calc_preco_total(self):
-		precoatual = 0
-		for servico in self.servicos_id:
-			precoatual += servico.list_price
-		for produto in self.produtos_id:
-			precoatual += produto.list_price
-		self.preco_total = precoatual
-
+	
+	serv_ids = fields.One2many('product.template.servico','cons_id',string="Serviços")
+	med_prod_ids = fields.One2many('product.template.med_prod','cons_id',string="Medicamento e Produtos")
+	
 	start_date = fields.Datetime()
 	duration = fields.Float(digits=(6, 2), help="Duração em dias")
 	end_date = fields.Datetime(string="Agendamento de Consultas")
 	name = fields.Text(string='Consultas')
+	@api.multi
+	@api.depends('serv_ids', 'serv_ids.preco_serv')
+	def _calc_preco_serv_total(self):
+		precototal1 = 0
+		for servico in self.serv_ids:
+			precototal1 += servico.preco_serv
+		self.preco_total_serv = precototal1
+	
+	preco_total_serv = fields.Float(string="Preço Total Serviço", digits=(7,2), compute='_calc_preco_serv_total', readonly=True)
+	
+	@api.multi
+	@api.depends('med_prod_ids', 'med_prod_ids.preco_med_prod')
+	def _calc_preco_med_prod_total(self):
+		precototal2 = 0
+		for mprod in self.med_prod_ids:
+			precototal2 += mprod.preco_med_prod
+		self.preco_total_med_prod = precototal2
+	
+	preco_total_med_prod = fields.Float(string="Preço Total Medicamento e Produto", digits=(7,2), compute='_calc_preco_med_prod_total', readonly=True)#, default='0'
+
+	@api.multi
+	@api.depends('preco_total_med_prod','preco_total_serv')
+	def _calc_preco_final_total(self):
+		precototal3 = 0
+		precototal3 = self.preco_total_serv + self.preco_total_med_prod
+		self.preco_total_final = precototal3
+	
+	preco_total_final = fields.Float(string="Preço Total Final", digits=(7,2), compute='_calc_preco_total_final', readonly=True)
     
 class Animal(models.Model):
 	_name = 'vetclin.animal'
@@ -63,58 +83,12 @@ class Produto(models.Model):
 	_description = 'Custom Products'
 
 	name = fields.Char(string="Nome do Produto/Medicamento/Serviço")
-#	medic_ids = fields.Many2many('vetclin.cmp_quimica', 'medic_cmp_quim_relation',string="Componente Quimico")
-#	med_uom = fields.Float(digits=(5,2),string="Quantidade")
 	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
 	is_serv = fields.Boolean(string="Novo Servico", readonly=True, default=False)
 	is_med = fields.Boolean(string="Novo Medicamento", readonly=True, default=False)
 	cmp_ids = fields.One2many('product.template.cmp_quimica','med_id',string='Composição')
-class Clinica(models.Model):
-    _inherit =  'res.company'
-    _description = 'Clinica'
-
-    name = fields.Char(string="Clínica")
-    razão_social = fields.Text(string="Razão Social")
-    consultorio_ids = fields.One2many('vetclin.consultorio', 'clinica_id')
-
-    @api.multi
-    @api.onchange('company_registry')
-    def check_cnpj(self):
-        if self.company_registry:
-            if (len(self.company_registry) == 14):
-                if self.check_cnpj_com_numeros_iguais(self.company_registry): 
-                    raise UserError('CNPJ Inválido')
-                elif self.verifica_cnpj(self.company_registry,12,5) != int(self.company_registry[12]) and self.verifica_cnpj(self.company_registry,13,6) != int(self.company_registry[13]):
-                    raise UserError('CNPJ Inválido')
-                else:
-                    print("ok")
-            else:
-                raise UserError('CNPJ Inválido')
-
-    def check_cnpj_com_numeros_iguais(self, cnpj):
-        indice = 0
-        while indice < len(cnpj)-1:
-            if cnpj[indice] == cnpj[indice+1]:
-                boolean = True
-            else:
-                boolean = False
-                break			
-            indice += 1		
-        return boolean
-    
-    def verifica_cnpj(self, cnpj, vezes, cont):
-        soma = 0
-        for n in range(0, vezes):
-            soma += cont * int(cnpj[n])
-            if cont == 2:
-                cont = 9
-            else:
-                cont -= 1
-        if (soma % 11) < 2:
-            digito = 0
-        else:
-            digito = 11 - (soma % 11)		
-        return digito
+	serv_id = fields.Many2one('product.template.servico')
+	mprod_id = fields.Many2one('product.template.med_prod')
 
 class Consultorio(models.Model):
     _name = 'vetclin.consultorio'
@@ -124,7 +98,6 @@ class Consultorio(models.Model):
     name = fields.Text(string="Nome")
     descricao = fields.Text(string="Descrição")
     ramal = fields.Char(string="Ramal")
-    #clinica_id = fields.Many2one('res.company', ondelete='cascade')
 
 class Partner(models.Model):
 	_inherit = 'res.partner'
@@ -189,8 +162,6 @@ class Cmp_Quimica(models.Model):
 	id = fields.Integer()
 	name = fields.Char(string="Nome do Composto Quimico")
 
-#medicameto_id = fields.Many2one('product.template', ondelete='cascade', string="Comp. Quimica")
-
 class Medic_comp(models.Model):
 	_name = 'product.template.cmp_quimica'
 	_description = "Relação de composição e medicamento"
@@ -199,3 +170,62 @@ class Medic_comp(models.Model):
 	med_id = fields.Many2one('product.template')
 	value = fields.Float(digits=(7,2),string='Quantidade do Componente')
 	uom_id = fields.Many2one('product.uom',string="Unidade de Medida")
+
+class Cons_serv(models.Model):
+	_name = 'product.template.servico'
+	_description = 'Relação de servico e consulta'
+
+	serv_ids = fields.One2many('product.template','serv_id',string='Serviços')
+	cons_id = fields.Many2one('vetclin.consulta')
+	qtd = fields.Integer(string='Quantidade',default='1')
+	
+	@api.one
+	@api.depends('serv_ids', 'serv_ids.list_price', 'qtd')
+	def _calc_preco_serv(self):
+		precoserv =  0.0
+		for servico in self.serv_ids:
+			precoserv = (servico.list_price * self.qtd)
+		self.preco_serv = precoserv
+	
+	preco_serv = fields.Float(string="Preço Serviço", digits=(7,2), compute='_calc_preco_serv', readonly=True)
+	
+	@api.multi
+	@api.depends('serv_ids','serv_ids.list_price')
+	def _calc_preco_uni_serv(self):
+		precoserv = 0	
+		#precoserv =  serv_id.list_price
+		for servico in self.serv_ids:
+			precoserv = servico.list_price 
+		self.preco_serv_uni = precoserv
+	
+	preco_serv_uni = fields.Float(string="Preço Unitário", digits=(7,2), compute='_calc_preco_uni_serv', readonly=True)
+
+class Cons_med_prod(models.Model):
+	_name = 'product.template.med_prod'
+	_description = 'Relação de medicamento/produto e consulta'
+
+	med_prod_ids = fields.One2many('product.template','mprod_id',string='Med/Prod')
+	cons_id = fields.Many2one('vetclin.consulta')
+	qtd = fields.Integer(string='Quantidade',default='1')
+
+	#preco_med_prod_uni = fields.Float(digits=(7,2), related="med_prod_id.list_price", readonly=True, string="Preço unitário")
+	@api.one
+	@api.depends('med_prod_ids', 'med_prod_ids.list_price', 'qtd')
+	def _calc_preco_med_prod(self):
+		precomprod = 0.0
+		for mprod in self.med_prod_ids:
+			precomprod = (mprod.list_price * qtd)
+		self.preco_med_prod = precomprod
+	
+	preco_med_prod = fields.Float(string="Preço Serviço", digits=(7,2), compute='_calc_preco_med_prod', readonly=True)
+
+	@api.one
+	@api.depends('med_prod_ids','med_prod_ids.list_price')
+	def _calc_preco_uni_med_prod(self):
+		precomprod = 0
+		#precomprod = med_prod_id.list_price
+		for mprod in self.med_prod_ids:
+			precomprod = mprod.list_price * 1 
+		self.preco_med_prod_uni = precomprod
+
+	preco_med_prod_uni = fields.Float(string="Preço Unitário", digits=(7,2), compute='_calc_preco_uni_med_prod', readonly=True)

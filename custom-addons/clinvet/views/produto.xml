@@ -58,6 +58,13 @@
 				<xpath expr="//field[@name='categ_id']" position="after">
 					<field name="is_med" invisible="True"/>
 				</xpath>
+
+				<xpath expr="//field[@name='categ_id']" position="after">
+					<field name="serv_id" invisible="True"/>
+				</xpath>
+				<xpath expr="//field[@name='categ_id']" position="after">
+					<field name="mprod_id" invisible="True"/>
+				</xpath>
 			</field>
 		</record>	
 
@@ -83,7 +90,7 @@
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
 			<field name='context'>{'default_is_prod':'True','default_type':'product'}</field>
-			<field name='domain'>[('is_prod','=',True),('type','=','product')]</field>
+			<field name='domain'>[('is_prod','=',True),('type','=','product'),('mprod_id','=','id')]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os produtos</p>
 			</field>
@@ -99,7 +106,7 @@
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
 			<field name='context'>{'default_is_serv':'True','default_type':'service'}</field>
-			<field name='domain'>[('is_serv','=',True),('type','=','service')]</field>
+			<field name='domain'>[('is_serv','=',True),('type','=','service'),('serv_id','=','id')]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os servicos</p>
 			</field>
@@ -113,7 +120,7 @@
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
 			<field name='context'>{'default_is_med':'True','default_type':'consu'}</field>
-			<field name='domain'>[('is_med','=',True),('type','=','consu')]</field>
+			<field name='domain'>[('is_med','=',True),('type','=','consu'),('mprod_id','=','id')]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os Medicamentos</p>
 			</field>
