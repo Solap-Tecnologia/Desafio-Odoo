@@ -22,7 +22,7 @@
                 'sale_management',
                 'mail',
                 'calendar',
-                #'account_invoicing',
+                'account_invoicing',
                 'contacts',],
     # always loaded
     'data': [
@@ -36,6 +36,8 @@
         'views/consulta.xml',
         'views/especie.xml',
         'views/raca.xml',
+        'views/fatura_pmed.xml',
+        'views/fatura_serv.xml',
         'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode

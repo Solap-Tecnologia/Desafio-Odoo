@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+		
+		<!-- Form view -->
+		<record model="ir.ui.view" id="acc_fat_serv_form_view">
+			<field name="name">account.invoice.fatura_serv.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref='sale.account_invoice_form' />
+			<field name="arch" type="xml">
+			
+				<xpath expr='//field[@name="partner_id"]' position='replace'>
+                    <field string="Cliente" name="partner_id" context="{'search_default_customer':1, 'show_address': 1, 'default_company_type': 'company'}" options="{&quot;always_reload&quot;: True, &quot;no_quick_create&quot;: True}" domain="[('customer', '=', True),('is_dono', '=',True)]"/>
+				</xpath>
+
+                <xpath expr='//field[@name="product_id"]' position='replace'>
+                    <field name="product_id"  domain ="[('sale_ok','=',True),('is_novo','=',True),('type','not in',('product','consu'))]"/>
+                </xpath>
+
+				<xpath expr="//field[@name='type']" position="after">
+					<field name="is_fat_serv" invisible="True"/>
+				</xpath>
+
+				<xpath expr="//field[@name='type']" position="after">
+					<field name="is_fat_pmed" invisible="True"/>
+				</xpath>
+
+			</field>
+		</record>	
+
+		<!-- Search view -->
+		<!--<record model='ir.ui.view' id='produto_search_view'>
+			<field name='name'>product.template.search</field>
+			<field name='model'>vetclin.produto</field>
+			<field name='arch' type='xml'>
+				<search>
+					<field name="name" />
+					<field name="categ_id" />
+					<field name="list_price" />
+				</search>			
+			</field>
+		</record>-->
+
+		<!-- Registro que tem ação de abrir o form-->
+		<record model='ir.actions.act_window' id='janela_cadastro_fatura_serv'>
+			<field name='name'>Fatura de Serviços</field>
+			<field name='res_model'>account.invoice</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name="view_id" ref="account.invoice_tree"/>
+			<field name='context'>{'default_is_fat_serv':'True'}</field>
+			<field name='domain'>[('partner_id.is_dono','=',True)]</field><!--,('is_fat_serv','=',True)]</field>-->
+			<field name='help' type='html'>
+				<p class='oe_view_nocontent_create'>Criar Fatura de Serviços</p>
+			</field>
+		</record>
+
+		<!--Menu que abrirá o form ou o tree view -->
+  
+		<menuitem id="submenu_fatura_serv"
+			name="Faturamento de Serviços"
+			parent="menu_esquerdo_fatura"
+			action="janela_cadastro_fatura_serv"/>
+	</data>
+</odoo>

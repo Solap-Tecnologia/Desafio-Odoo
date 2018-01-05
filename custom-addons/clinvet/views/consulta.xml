@@ -24,15 +24,13 @@
 								<field name="med_prod_ids" widget="one2many_list" domain="[('is_med','=','True'),('is_prod','=','True')]">
 									<tree editable="bottom">
 										<field name="id"/>
-										<field name="preco_med_prod_uni"/>
 										<field name="qtd"/>
-										<field name="preco_med_prod"/>
 									</tree>
 								</field>
 							</group>
-							<group>
-								<field name='preco_total_med_prod' />
-							</group>
+							<!--<group>
+								<field name='preco_total_final' />
+							</group>-->
 						</page>
 					
 						<page name="serv_page" string="Serviço">
@@ -40,20 +38,16 @@
 							<field name="serv_ids" widget="one2many_list" domain="[('is_serv','=','True')]">
 								<tree editable="bottom">
 									<field name="id"/>
-									<field name="preco_serv_uni"/>
 									<field name="qtd"/>
-									<field name="preco_serv"/>
 								</tree>
 							</field>
 						</group>
-						<group>
-							<field name='preco_total_serv' />
-						</group>
+						<!--<group>
+							<field name='preco_total_final' />
+						</group>-->
 						</page>
 						</notebook>
-						<group>
-							<field name='preco_total_final' />
-						</group>
+
 					</sheet>
 				</form>				
 			</field>

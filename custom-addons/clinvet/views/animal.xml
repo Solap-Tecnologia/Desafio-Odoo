@@ -13,7 +13,7 @@
 							<field name='name'/>
 						</group>
 						<group>
-							<field name='especie_id' widget='many2one'/>
+							<!--<field name='especie_id' widget='many2one'/>-->
 							<field name='raca_id' widget='many2one' />
 						</group>
 						<group>

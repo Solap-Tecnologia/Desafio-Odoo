@@ -39,35 +39,7 @@ class Consulta(models.Model):
 	duration = fields.Float(digits=(6, 2), help="Duração em dias")
 	end_date = fields.Datetime(string="Agendamento de Consultas")
 	name = fields.Text(string='Consultas')
-	@api.multi
-	@api.depends('serv_ids', 'serv_ids.preco_serv')
-	def _calc_preco_serv_total(self):
-		precototal1 = 0
-		for servico in self.serv_ids:
-			precototal1 += servico.preco_serv
-		self.preco_total_serv = precototal1
-	
-	preco_total_serv = fields.Float(string="Preço Total Serviço", digits=(7,2), compute='_calc_preco_serv_total', readonly=True)
-	
-	@api.multi
-	@api.depends('med_prod_ids', 'med_prod_ids.preco_med_prod')
-	def _calc_preco_med_prod_total(self):
-		precototal2 = 0
-		for mprod in self.med_prod_ids:
-			precototal2 += mprod.preco_med_prod
-		self.preco_total_med_prod = precototal2
-	
-	preco_total_med_prod = fields.Float(string="Preço Total Medicamento e Produto", digits=(7,2), compute='_calc_preco_med_prod_total', readonly=True)#, default='0'
 
-	@api.multi
-	@api.depends('preco_total_med_prod','preco_total_serv')
-	def _calc_preco_final_total(self):
-		precototal3 = 0
-		precototal3 = self.preco_total_serv + self.preco_total_med_prod
-		self.preco_total_final = precototal3
-	
-	preco_total_final = fields.Float(string="Preço Total Final", digits=(7,2), compute='_calc_preco_total_final', readonly=True)
-    
 class Animal(models.Model):
 	_name = 'vetclin.animal'
 	_description = 'Animal'	
@@ -83,13 +55,20 @@ class Produto(models.Model):
 	_description = 'Custom Products'
 
 	name = fields.Char(string="Nome do Produto/Medicamento/Serviço")
-	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
-	is_serv = fields.Boolean(string="Novo Servico", readonly=True, default=False)
-	is_med = fields.Boolean(string="Novo Medicamento", readonly=True, default=False)
+#	is_prod = fields.Boolean(string="Novo Produto", readonly=True, default=False)
+#	is_serv = fields.Boolean(string="Novo Servico", readonly=True, default=False)
+	
+	is_med = fields.Boolean(string="Medicamento", default=False)
 	cmp_ids = fields.One2many('product.template.cmp_quimica','med_id',string='Composição')
 	serv_id = fields.Many2one('product.template.servico')
 	mprod_id = fields.Many2one('product.template.med_prod')
+	
+	@api.multi
+	@api.onchange('name')
+	def novo_prod(self):
+		self.is_novo = True
 
+	is_novo = fields.Boolean(string="Tag de Diferenciação", default=False)
 class Consultorio(models.Model):
     _name = 'vetclin.consultorio'
     _description = 'Consultorio'
@@ -179,27 +158,6 @@ class Cons_serv(models.Model):
 	cons_id = fields.Many2one('vetclin.consulta')
 	qtd = fields.Integer(string='Quantidade',default='1')
 	
-	@api.one
-	@api.depends('serv_ids', 'serv_ids.list_price', 'qtd')
-	def _calc_preco_serv(self):
-		precoserv =  0.0
-		for servico in self.serv_ids:
-			precoserv = (servico.list_price * self.qtd)
-		self.preco_serv = precoserv
-	
-	preco_serv = fields.Float(string="Preço Serviço", digits=(7,2), compute='_calc_preco_serv', readonly=True)
-	
-	@api.multi
-	@api.depends('serv_ids','serv_ids.list_price')
-	def _calc_preco_uni_serv(self):
-		precoserv = 0	
-		#precoserv =  serv_id.list_price
-		for servico in self.serv_ids:
-			precoserv = servico.list_price 
-		self.preco_serv_uni = precoserv
-	
-	preco_serv_uni = fields.Float(string="Preço Unitário", digits=(7,2), compute='_calc_preco_uni_serv', readonly=True)
-
 class Cons_med_prod(models.Model):
 	_name = 'product.template.med_prod'
 	_description = 'Relação de medicamento/produto e consulta'
@@ -208,24 +166,9 @@ class Cons_med_prod(models.Model):
 	cons_id = fields.Many2one('vetclin.consulta')
 	qtd = fields.Integer(string='Quantidade',default='1')
 
-	#preco_med_prod_uni = fields.Float(digits=(7,2), related="med_prod_id.list_price", readonly=True, string="Preço unitário")
-	@api.one
-	@api.depends('med_prod_ids', 'med_prod_ids.list_price', 'qtd')
-	def _calc_preco_med_prod(self):
-		precomprod = 0.0
-		for mprod in self.med_prod_ids:
-			precomprod = (mprod.list_price * qtd)
-		self.preco_med_prod = precomprod
-	
-	preco_med_prod = fields.Float(string="Preço Serviço", digits=(7,2), compute='_calc_preco_med_prod', readonly=True)
+class Faturamento(models.Model):
+	_inherit = 'account.invoice'
+	_description = 'Custom Invoices'
 
-	@api.one
-	@api.depends('med_prod_ids','med_prod_ids.list_price')
-	def _calc_preco_uni_med_prod(self):
-		precomprod = 0
-		#precomprod = med_prod_id.list_price
-		for mprod in self.med_prod_ids:
-			precomprod = mprod.list_price * 1 
-		self.preco_med_prod_uni = precomprod
-
-	preco_med_prod_uni = fields.Float(string="Preço Unitário", digits=(7,2), compute='_calc_preco_uni_med_prod', readonly=True)
+	is_fat_serv = fields.Boolean(string="Fatura de Serviço", readonly=True, default=False)
+	is_fat_pmed = fields.Boolean(string="Fatura de Produto/Medicamento", readonly=True, default=False)

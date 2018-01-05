@@ -39,10 +39,10 @@
 			</field>
 		</record>
 
-		<menuitem 
+		<!--<menuitem 
 			id='submenu_racas'
 			name='Raças'
 			parent='menu_esquerdo_cadastros'
-			action='janela_cadastro_racas' />
+			action='janela_cadastro_racas' />-->
 	</data>
 </odoo>

@@ -7,16 +7,25 @@
 		<menuitem id='menu_esquerdo_cadastros' 
 			name='Cadastros' 
 			parent='menu_superior_vetclin'/>
+		
 		<menuitem id='menu_esquerdo_consultas' 
 			name='Agendamento de Consultas' 
 			parent='menu_superior_vetclin'/>
+		
+		<menuitem id='menu_esquerdo_fatura'
+			name='Gerador de Faturas'
+			parent='menu_superior_vetclin'/>
+		
 		<menuitem id='menu_esquerdo_relatorios' 
 			name='Relatórios' 
 			parent='menu_superior_vetclin' />
+		
 		<menuitem id='submenu_consulta' 
 			name='Agendamento de Consultas' 
 			parent='menu_superior_vetclin'/>
 
-
+		<menuitem id='submenu_fatura' 
+			name='Agendamento de Faturas' 
+			parent='menu_superior_vetclin'/>
 	</data>
 </odoo>

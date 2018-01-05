@@ -51,11 +51,11 @@
 					<field name='data_demissao' attrs="{'invisible':[('is_dono','=',True)]}"/>
 				</xpath>
 
-				<xpath expr='//field[@name="email"]' position='after'>
+				<!--<xpath expr='//field[@name="email"]' position='after'>
 					<field name='cpf' attrs="{'invisible':[('is_dono','=',False)]}"/>
 				</xpath>
 
-				<!--name_dono-->
+				name_dono-->
 				<xpath expr='//field[@name="name"]' position='before'>
 					<field name="is_dono" invisible='True'/>
 				</xpath>
@@ -76,9 +76,9 @@
 				<xpath expr='//field[@name="street"]' position='replace'>
 					<field name='street' placeholder='Rua, numero'/>
 				</xpath>
-				<xpath expr='//field[@name="city"]' position='replace'>
+				<!--<xpath expr='//field[@name="city"]' position='replace'>
 					<field name='city' placeholder='Cidade' class="o_address_city" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-				</xpath>
+				</xpath>-->
 				<xpath expr='//field[@name="state_id"]' position='replace'>
 					<field name='state_id' placeholder='Estado' class="o_address_state" options="{&quot;no_open&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/>
 				</xpath>

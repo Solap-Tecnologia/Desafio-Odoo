@@ -35,7 +35,7 @@
 				</xpath>-->
 
 				<xpath expr="//page[@name='general_information']" position="after">
-					<page name="comp_quimica_page" string="Composição Química" attrs="{'invisible':[('is_med','=',False)]}">
+					<page name="comp_quimica_page" string="Composição Química" attrs="{'invisible':['|',('is_med','=',False),('type','=','service')]}">
 						<!--<field name="medic_ids" widget="many2many_tags" placeholder="Medicamentos"/>-->
 						<field name="cmp_ids" widget="one2many_list">
 							<tree editable="bottom">
@@ -48,23 +48,23 @@
 				</xpath>
 
 				<xpath expr="//field[@name='categ_id']" position="after">
-					<field name="is_prod" invisible="True"/>
+					<field name="is_novo" invisible="False"/>
 				</xpath>
 
-				<xpath expr="//field[@name='categ_id']" position="after">
+				<!--<xpath expr="//field[@name='categ_id']" position="after">
 					<field name="is_serv" invisible="True"/>
-				</xpath>
+				</xpath>-->
 
 				<xpath expr="//field[@name='categ_id']" position="after">
-					<field name="is_med" invisible="True"/>
+					<field name="is_med" invisible="False"/>
 				</xpath>
 
-				<xpath expr="//field[@name='categ_id']" position="after">
+				<!--<xpath expr="//field[@name='categ_id']" position="after">
 					<field name="serv_id" invisible="True"/>
 				</xpath>
 				<xpath expr="//field[@name='categ_id']" position="after">
 					<field name="mprod_id" invisible="True"/>
-				</xpath>
+				</xpath>-->
 			</field>
 		</record>	
 
@@ -89,8 +89,8 @@
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
-			<field name='context'>{'default_is_prod':'True','default_type':'product'}</field>
-			<field name='domain'>[('is_prod','=',True),('type','=','product'),('mprod_id','=','id')]</field>
+			<field name='context'>{'default_is_novo':'True','default_type':'product','default_is_novo':'True'}</field>
+			<field name='domain'>[('is_novo','=',True),('type','!=','service'),('is_med','=',False)]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os produtos</p>
 			</field>
@@ -105,8 +105,8 @@
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
-			<field name='context'>{'default_is_serv':'True','default_type':'service'}</field>
-			<field name='domain'>[('is_serv','=',True),('type','=','service'),('serv_id','=','id')]</field>
+			<field name='context'>{'default_type':'service','default_is_novo':'True'}</field>
+			<field name='domain'>[('is_novo','=',True),('type','=','service')]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os servicos</p>
 			</field>
@@ -119,8 +119,8 @@
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
 			<field name="view_id" ref="product.product_template_tree_view"/>
-			<field name='context'>{'default_is_med':'True','default_type':'consu'}</field>
-			<field name='domain'>[('is_med','=',True),('type','=','consu'),('mprod_id','=','id')]</field>
+			<field name='context'>{'default_is_med':'True','default_is_novo':'True'}</field>
+			<field name='domain'>[('is_med','=',True),('is_novo','=',True),('type','!=','service')]</field>
 			<field name='help' type='html'>
 				<p class='oe_view_nocontent_create'>Cadastre os Medicamentos</p>
 			</field>

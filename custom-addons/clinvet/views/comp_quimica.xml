@@ -54,9 +54,9 @@
 			</field>
 		</record>
 		<!-- Menu que abrirá o form ou o tree view-->
-		<menuitem id='submenu_cmp_quimica'
+		<!--<menuitem id='submenu_cmp_quimica'
 			name='Composição Quimica'
 			parent='menu_esquerdo_cadastros'
-			action='janela_cadastro_cmp_quimica'/>
+			action='janela_cadastro_cmp_quimica'/>-->
 	</data>
 </odoo>
